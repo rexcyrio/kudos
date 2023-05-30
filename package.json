@@ -17,7 +17,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@expo/ngrok": "^4.1.1"
+    "@expo/ngrok": "^4.1.1",
+    "@tsconfig/react-native": "^3.0.2",
+    "@types/jest": "^29.5.1",
+    "@types/react": "^18.2.7",
+    "@types/react-test-renderer": "^18.0.0",
+    "typescript": "^5.0.4"
   },
   "private": true
 }
