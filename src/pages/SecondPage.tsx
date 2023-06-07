@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Text, View } from "react-native";
 import { SecondPageProps } from "../utilities/types";
 
-function SecondPage({ navigation }: SecondPageProps) {
+function SecondPage({ navigation, route }: SecondPageProps) {
   return (
     <View
       style={{
@@ -12,6 +12,7 @@ function SecondPage({ navigation }: SecondPageProps) {
       }}
     >
       <Text>Welcome to the SecondPage!</Text>
+      <Text>{route.params.info}</Text>
       <Button
         title="Go to FirstPage"
         onPress={() => navigation.navigate("FirstPage")}

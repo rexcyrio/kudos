@@ -10,7 +10,9 @@ function FirstPage({ navigation }: FirstPageProps) {
       <Text>This is the FirstPage</Text>
       <Button
         title="Go to SecondPage"
-        onPress={() => navigation.navigate("SecondPage")}
+        onPress={() =>
+          navigation.navigate("SecondPage", { info: Math.random().toString() })
+        }
       />
       <MaterialIcons name="settings" size={24} color="black" />
       <StatusBar style="auto" />
