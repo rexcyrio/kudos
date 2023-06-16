@@ -7,10 +7,13 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",
+    "@jsamr/counter-style": "^2.0.2",
+    "@jsamr/react-native-li": "^2.3.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",

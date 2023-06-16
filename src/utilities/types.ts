@@ -4,6 +4,12 @@ export type RootStackParamList = {
   FirstPage: undefined;
   SecondPage: { info: string };
   PageWithPaper: undefined;
+
+  Home: undefined;
+  Search: undefined;
+  Profile: undefined;
+  Notifications: undefined;
+  Settings: undefined;
 };
 
 export type FirstPageProps = NativeStackScreenProps<
