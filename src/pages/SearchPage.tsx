@@ -52,7 +52,7 @@ function SearchPage(): JSX.Element {
     });
 
     return unsubscribe;
-  }, [searchTerm]);
+  }, []);
 
   return (
     <View style={styles.container}>
