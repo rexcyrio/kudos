@@ -12,7 +12,7 @@ function HomePage(): JSX.Element {
     <ScrollView style={{ paddingHorizontal: 15 }}>
       <View style={{ marginBottom: 15 }}>
         <Text style={styles.title}>Welcome to Kudos</Text>
-
+        
         <Card>
           <Card.Content
             style={{
