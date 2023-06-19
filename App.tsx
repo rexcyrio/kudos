@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import HomePage from "./src/pages/HomePage";
 import NotificationsPage from "./src/pages/NotificationsPage";
-import ProfilePage from "./src/pages/ProfilePage";
+import ProfilePages from "./src/pages/ProfilePage/ProfilePages";
 import SearchPage from "./src/pages/SearchPage";
 import SettingsPage from "./src/pages/SettingsPage";
 import { RootStackParamList } from "./src/utilities/types";
@@ -60,7 +60,7 @@ function App() {
       >
         <Tab.Screen name="Home" component={HomePage} />
         <Tab.Screen name="Search" component={SearchPage} />
-        <Tab.Screen name="Profile" component={ProfilePage} />
+        <Tab.Screen name="Profile" component={ProfilePages} />
         <Tab.Screen name="Notifications" component={NotificationsPage} />
         <Tab.Screen name="Settings" component={SettingsPage} />
       </Tab.Navigator>

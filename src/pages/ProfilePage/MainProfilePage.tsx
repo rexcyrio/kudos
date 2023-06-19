@@ -1,8 +1,13 @@
 import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableHighlight } from "react-native";
 import {Svg, Path} from 'react-native-svg';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-function ProfilePage(): JSX.Element {
+function MainProfilePage({ navigation }): JSX.Element {
+
+  const Stack = createNativeStackNavigator();
+  
   return (
     <View style={styles.container}>
         <View style={styles.profileFrame}>
@@ -15,10 +20,15 @@ function ProfilePage(): JSX.Element {
             <Text style={styles.title}>{`Product Manager`}</Text>
             <Text style={styles.Points}>{`1000 points`}</Text>
           </View>
-          <Image
-            style={styles.editProfileImg}
-            source={require('/assets/pencil.png')}
-          />
+          <TouchableHighlight onPress={() => {
+            navigation.navigate("EditProfilePage");
+            console.log("Edit Profile Page");
+          }}>
+            <Image
+              style={styles.editProfileImg}
+              source={require('/assets/pencil.png')}
+            />
+          </TouchableHighlight>
         </View>
       <View style={styles.leftContent}>
         <View style={styles.avatarContainer}>
@@ -126,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfilePage;
+export default MainProfilePage;
