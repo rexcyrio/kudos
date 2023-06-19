@@ -4,7 +4,7 @@ import {
   onSnapshot,
   query,
 } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,10 +12,33 @@ import {
   Button,
   StyleSheet,
   FlatList,
+  Image,
 } from "react-native";
 import { db } from "../../firebase";
 
 function SearchPage(): JSX.Element {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState<DocumentData[]>([]);
+  const [people, setPeople] = useState<DocumentData[]>([]);
+
+  const handleSearch = useCallback(() => {
+    // Perform the search logic here
+
+    const filteredResults = people.filter((item: DocumentData) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setSearchResults(filteredResults);
+  }, [searchTerm]);
+
+  const handleSearchTermChange = (text: string) => {
+    setSearchTerm(text);
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [handleSearch]);
+
   useEffect(() => {
     const q = query(collection(db, "users"));
 
@@ -29,24 +52,7 @@ function SearchPage(): JSX.Element {
     });
 
     return unsubscribe;
-  }, []);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState<DocumentData[]>([]);
-  const [people, setPeople] = useState<DocumentData[]>([]);
-
-  const handleSearch = () => {
-    // Perform the search logic here
-    // You can use an API call or search through a local data source
-
-    // For example, let's assume you have a list of items to search from;
-
-    const filteredItems = people.filter((item: DocumentData) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    setSearchResults(filteredItems);
-  };
+  }, [searchTerm]);
 
   return (
     <View style={styles.container}>
@@ -55,7 +61,7 @@ function SearchPage(): JSX.Element {
         <TextInput
           placeholder="Search..."
           value={searchTerm}
-          onChangeText={setSearchTerm}
+          onChangeText={handleSearchTermChange}
           style={styles.input}
         />
         <Button title="Search" onPress={handleSearch} />
@@ -64,7 +70,15 @@ function SearchPage(): JSX.Element {
       <FlatList
         data={searchResults}
         renderItem={({ item }) => (
-          <Text style={styles.resultItem}>{item.name}</Text>
+          <View style={styles.resultContainer}>
+            <View style={styles.profileCircle}>
+              <Image
+                source={{ uri: item.profilePicture }}
+                style={styles.profileImage}
+              />
+            </View>
+            <Text style={styles.resultItem}>{item.name}</Text>
+          </View>
         )}
       />
     </View>
@@ -98,9 +112,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
   },
+  resultContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  profileCircle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#e0e0e0",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 8,
+  },
+  profileImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
   resultItem: {
     fontSize: 16,
-    marginBottom: 4,
   },
 });
 
