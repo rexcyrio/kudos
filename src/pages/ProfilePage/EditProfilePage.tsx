@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Button } from 'react-native';
 import { launchImageLibrary, MediaType } from 'react-native-image-picker';
 
-const EditProfilePage = () => {
+const EditProfilePage = ({ name, jobTitle, navigation, setName, setJobTitle }) => {
   const [profilePic, setProfilePic] = useState(null);
-  const [name, setName] = useState('');
-  const [jobDescription, setJobDescription] = useState('');
 
   const handleProfilePicChange = () => {
     const options = {
@@ -46,8 +44,8 @@ const EditProfilePage = () => {
       />
       <TextInput
         placeholder="Job Description"
-        value={jobDescription}
-        onChangeText={setJobDescription}
+        value={jobTitle}
+        onChangeText={setJobTitle}
       />
       <Button title="Save Changes" onPress={handleSaveChanges} />
     </View>

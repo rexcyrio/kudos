@@ -4,7 +4,7 @@ import {Svg, Path} from 'react-native-svg';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-function MainProfilePage({ navigation }): JSX.Element {
+function MainProfilePage({ name, jobTitle, navigation }): JSX.Element {
 
   const Stack = createNativeStackNavigator();
   
@@ -16,8 +16,8 @@ function MainProfilePage({ navigation }): JSX.Element {
             source={require('/assets/profile_img1.png')}
           />
           <View style={styles.nameContainer}>
-            <Text style={styles.name}>{`Jethro Sim`}</Text>
-            <Text style={styles.title}>{`Product Manager`}</Text>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.title}>{jobTitle}</Text>
             <Text style={styles.Points}>{`1000 points`}</Text>
           </View>
           <TouchableHighlight onPress={() => {
