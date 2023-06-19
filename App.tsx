@@ -59,7 +59,11 @@ function App() {
         })}
       >
         <Tab.Screen name="Home" component={HomePage} />
-        <Tab.Screen name="Search" component={SearchPage} />
+        <Tab.Screen
+          name="Search"
+          component={SearchPage}
+          options={{ headerShown: false }}
+        />
         <Tab.Screen name="Profile" component={ProfilePage} />
         <Tab.Screen name="Notifications" component={NotificationsPage} />
         <Tab.Screen name="Settings" component={SettingsPage} />
