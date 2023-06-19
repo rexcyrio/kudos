@@ -5,30 +5,45 @@ import {Svg, Path} from 'react-native-svg';
 function ProfilePage(): JSX.Element {
   return (
     <View style={styles.container}>
-      <View style={styles.profile_frame}>
-        <Image 
-          style={styles.profile_img}
-          source={require('/assets/profile_img1.png')}
-        />
-        <View style={styles.name_container}>
-          <Text style={styles.name}> {`Jethro Sim`}</Text>
-          <Text style={styles.title}>{`Product Manager`}</Text>
-          <Text style={styles.Points}>{`1000 points`}</Text>
+        <View style={styles.profileFrame}>
+          <Image
+            style={styles.profileImg}
+            source={require('/assets/profile_img1.png')}
+          />
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>{`Jethro Sim`}</Text>
+            <Text style={styles.title}>{`Product Manager`}</Text>
+            <Text style={styles.Points}>{`1000 points`}</Text>
+          </View>
+          <Image
+            style={styles.editProfileImg}
+            source={require('/assets/pencil.png')}
+          />
         </View>
-        <Image
-          style={styles.edit_profile_img}
-          source={require('/assets/pencil.png')}
-        />
+      <View style={styles.leftContent}>
+        <View style={styles.avatarContainer}>
+          <Image
+            style={styles.avatarImage}
+            source={require('/assets/avatar.png')}
+          />
+          <View style={styles.chooseAvatarContainer}>
+            <Text style={styles.chooseAvatarText}>Choose Avatar</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
-
 }
-
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    flexDirection: 'column',
+  },
+  leftContent: {
+    flex: 1,
+    justifyContent: 'center',
+    margin: 50
   },
   Points: {
     margin: 16,
@@ -58,27 +73,24 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     textAlignVertical: 'top',
   },
-  name_container:{
-    flex:1,
-    justifyContent: 'flex-start',
+  nameContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  profile_img: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: 15,
+  profileImg: {
+    marginLeft: 15,
     marginTop: 0,
     width: 100,
     height: 100,
     borderRadius: 700,
   },
-  profile_frame: {
-    display: 'flex',
+  profileFrame: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    alignItems: 'center',
     height: 100,
     backgroundColor: '#e0e0e0',
   },
-  edit_profile_img: {
+  editProfileImg: {
     marginLeft: 'auto',
     marginRight: 35,
     marginTop: 35,
@@ -86,7 +98,32 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 0,
   },
+  avatarContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: 'black',
+  },
+  avatarImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+  },
+  chooseAvatarContainer: {
+    backgroundColor: '#e9e9e9',
+    padding: 10,
+    marginTop: 20,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  chooseAvatarText: {
+    textAlign: 'center',
+    fontSize: 18,
+  },
 });
 
-
-export default React.memo(ProfilePage);
+export default ProfilePage;
