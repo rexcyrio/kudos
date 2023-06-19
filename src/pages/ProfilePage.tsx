@@ -1,30 +1,29 @@
 import React from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
-import {Svg, Path} from 'react-native-svg';
 
 function ProfilePage(): JSX.Element {
   return (
     <View style={styles.container}>
-        <View style={styles.profileFrame}>
-          <Image
-            style={styles.profileImg}
-            source={require('/assets/profile_img1.png')}
-          />
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>{`Jethro Sim`}</Text>
-            <Text style={styles.title}>{`Product Manager`}</Text>
-            <Text style={styles.Points}>{`1000 points`}</Text>
-          </View>
-          <Image
-            style={styles.editProfileImg}
-            source={require('/assets/pencil.png')}
-          />
+      <View style={styles.profileFrame}>
+        <Image
+          style={styles.profileImg}
+          source={require("../../assets/profile_img1.png")}
+        />
+        <View style={styles.nameContainer}>
+          <Text style={styles.name}>{`Jethro Sim`}</Text>
+          <Text style={styles.title}>{`Product Manager`}</Text>
+          <Text style={styles.Points}>{`1000 points`}</Text>
         </View>
+        <Image
+          style={styles.editProfileImg}
+          source={require("../../assets/pencil.png")}
+        />
+      </View>
       <View style={styles.leftContent}>
         <View style={styles.avatarContainer}>
           <Image
             style={styles.avatarImage}
-            source={require('/assets/avatar.png')}
+            source={require("../../assets/avatar.png")}
           />
           <View style={styles.chooseAvatarContainer}>
             <Text style={styles.chooseAvatarText}>Choose Avatar</Text>
@@ -38,30 +37,30 @@ function ProfilePage(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   leftContent: {
     flex: 1,
-    justifyContent: 'center',
-    margin: 50
+    justifyContent: "center",
+    margin: 50,
   },
   Points: {
     margin: 16,
     marginTop: 0,
     height: 17,
     fontSize: 14,
-    fontWeight: '400',
-    textAlign: 'left',
-    textAlignVertical: 'top',
-    color: '#bfbfbf',
+    fontWeight: "400",
+    textAlign: "left",
+    textAlignVertical: "top",
+    color: "#bfbfbf",
   },
   name: {
     margin: 10,
     height: 27,
     fontSize: 22,
-    fontWeight: '700',
-    textAlign: 'left',
-    textAlignVertical: 'top',
+    fontWeight: "700",
+    textAlign: "left",
+    textAlignVertical: "top",
   },
   title: {
     margin: 16,
@@ -69,13 +68,13 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     height: 16,
     fontSize: 13,
-    fontWeight: '700',
-    textAlign: 'left',
-    textAlignVertical: 'top',
+    fontWeight: "700",
+    textAlign: "left",
+    textAlignVertical: "top",
   },
   nameContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   profileImg: {
     marginLeft: 15,
@@ -85,13 +84,13 @@ const styles = StyleSheet.create({
     borderRadius: 700,
   },
   profileFrame: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     height: 100,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: "#e0e0e0",
   },
   editProfileImg: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
     marginRight: 35,
     marginTop: 35,
     width: 30,
@@ -100,10 +99,10 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: "black",
   },
   avatarImage: {
     width: 120,
@@ -111,17 +110,17 @@ const styles = StyleSheet.create({
     borderRadius: 60,
   },
   chooseAvatarContainer: {
-    backgroundColor: '#e9e9e9',
+    backgroundColor: "#e9e9e9",
     padding: 10,
     marginTop: 20,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    alignItems: 'center',
+    alignItems: "center",
   },
   chooseAvatarText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
   },
 });
