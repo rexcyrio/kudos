@@ -6,7 +6,7 @@ import {
   onSnapshot,
   orderBy,
   query,
-  where
+  where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
@@ -55,7 +55,7 @@ function LeaderboardPage({
   }, [filterByJob, filterByLocation]);
 
   return (
-    <View>
+    <View style={{ height: "100%" }}>
       <View style={{ flexDirection: "row", width: "100%" }}>
         <View style={{ backgroundColor: "lightgreen", width: "50%" }}>
           <Text>Job:</Text>
@@ -88,7 +88,11 @@ function LeaderboardPage({
       <FlatList
         data={persons}
         renderItem={({ item, index }) => (
-          <LeaderboardPersonComponent position={index + 1} person={item} />
+          <LeaderboardPersonComponent
+            position={index + 1}
+            person={item}
+            navigation={navigation}
+          />
         )}
         keyExtractor={(person, index) => person.id}
       />

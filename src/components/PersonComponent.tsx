@@ -28,7 +28,7 @@ function PersonComponent({ person }: PersonProps): JSX.Element {
       >
         <Image
           source={{
-            uri: "https://i.pinimg.com/originals/d3/7c/33/d37c33b2921a5df2fc85040e32b28f6c.jpg",
+            uri: person.profilePicture,
           }}
           style={{
             width: HEIGHT,

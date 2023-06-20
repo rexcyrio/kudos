@@ -1,15 +1,23 @@
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { Person } from "../utilities/types";
+import { Text, TouchableOpacity } from "react-native";
+import { Person, SearchPageStackParamList } from "../utilities/types";
 import PersonComponent from "./PersonComponent";
+
 type LeaderboardPersonComponentProps = {
   position: number;
   person: Person;
-}
+  navigation: NativeStackNavigationProp<
+    SearchPageStackParamList,
+    "LeaderboardPage",
+    undefined
+  >;
+};
 
 function LeaderboardPersonComponent({
   position,
   person,
+  navigation,
 }: LeaderboardPersonComponentProps): JSX.Element {
   return (
     <TouchableOpacity
@@ -23,6 +31,9 @@ function LeaderboardPersonComponent({
         paddingHorizontal: 10,
         backgroundColor: "yellow",
       }}
+      onPress={() =>
+        navigation.navigate("PersonProfilePage", { id: person.id })
+      }
     >
       <Text style={{ fontSize: 16 }}>#{position}</Text>
       <PersonComponent person={person} />

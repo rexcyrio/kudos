@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import { PaperProvider } from "react-native-paper";
 import HomePage from "./src/pages/HomePage";
 import NotificationsPage from "./src/pages/NotificationsPage";
 import ProfilePage from "./src/pages/ProfilePage";
@@ -18,57 +19,61 @@ const MARGIN_BOTTOM = 5;
 
 function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            switch (route.name) {
-              case "Home":
-                return <MaterialIcons name="home" size={size} color={color} />;
+    <PaperProvider>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              switch (route.name) {
+                case "Home":
+                  return (
+                    <MaterialIcons name="home" size={size} color={color} />
+                  );
 
-              case "Search":
-                return (
-                  <MaterialIcons name="search" size={size} color={color} />
-                );
+                case "Search":
+                  return (
+                    <MaterialIcons name="search" size={size} color={color} />
+                  );
 
-              case "Profile":
-                return (
-                  <MaterialIcons name="person" size={size} color={color} />
-                );
+                case "Profile":
+                  return (
+                    <MaterialIcons name="person" size={size} color={color} />
+                  );
 
-              case "Notifications":
-                return (
-                  <MaterialIcons
-                    name="notifications"
-                    size={size}
-                    color={color}
-                  />
-                );
+                case "Notifications":
+                  return (
+                    <MaterialIcons
+                      name="notifications"
+                      size={size}
+                      color={color}
+                    />
+                  );
 
-              case "Settings":
-                return (
-                  <MaterialIcons name="settings" size={size} color={color} />
-                );
-            }
-          },
-          tabBarActiveTintColor: "purple",
-          tabBarInactiveTintColor: "gray",
-          tabBarItemStyle: { marginBottom: MARGIN_BOTTOM },
-          tabBarStyle: { height: ORIGINAL_TAB_BAR_HEIGHT + MARGIN_BOTTOM },
-          headerTitleAlign: "center",
-        })}
-      >
-        <Tab.Screen name="Home" component={HomePage} />
-        <Tab.Screen
-          name="Search"
-          component={SearchPage}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen name="Profile" component={ProfilePage} />
-        <Tab.Screen name="Notifications" component={NotificationsPage} />
-        <Tab.Screen name="Settings" component={SettingsPage} />
-      </Tab.Navigator>
-    </NavigationContainer>
+                case "Settings":
+                  return (
+                    <MaterialIcons name="settings" size={size} color={color} />
+                  );
+              }
+            },
+            tabBarActiveTintColor: "purple",
+            tabBarInactiveTintColor: "gray",
+            tabBarItemStyle: { marginBottom: MARGIN_BOTTOM },
+            tabBarStyle: { height: ORIGINAL_TAB_BAR_HEIGHT + MARGIN_BOTTOM },
+            headerTitleAlign: "center",
+          })}
+        >
+          <Tab.Screen name="Home" component={HomePage} />
+          <Tab.Screen
+            name="Search"
+            component={SearchPage}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen name="Profile" component={ProfilePage} />
+          <Tab.Screen name="Notifications" component={NotificationsPage} />
+          <Tab.Screen name="Settings" component={SettingsPage} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
 
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="FirstPage">

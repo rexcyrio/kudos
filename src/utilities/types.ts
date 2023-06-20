@@ -28,6 +28,7 @@ export type Person = {
   location: string;
   name: string;
   points: number;
+  profilePicture: string;
 };
 
 export type Notification = {
@@ -42,6 +43,7 @@ export type Notification = {
 export type SearchPageStackParamList = {
   SearchPageInner: undefined;
   LeaderboardPage: undefined;
+  PersonProfilePage: { id: string };
 };
 
 export type SearchPageInnerProps = NativeStackScreenProps<
@@ -52,4 +54,9 @@ export type SearchPageInnerProps = NativeStackScreenProps<
 export type LeaderboardPageProps = NativeStackScreenProps<
   SearchPageStackParamList,
   "LeaderboardPage"
+>;
+
+export type PersonProfilePageProps = NativeStackScreenProps<
+  SearchPageStackParamList,
+  "PersonProfilePage"
 >;
