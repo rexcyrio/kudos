@@ -10,6 +10,7 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import ViewLeaderboardButton from "../components/ViewLeaderboardButton";
 
 function HomePage(): JSX.Element {
   const [name, setName] = useState(null);
@@ -96,6 +97,8 @@ function HomePage(): JSX.Element {
           </Card.Content>
         </Card>
       </View>
+
+      <ViewLeaderboardButton navigation={navigation} />
     </ScrollView>
   );
 }
