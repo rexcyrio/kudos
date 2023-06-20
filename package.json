@@ -11,6 +11,7 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^18.0.1",
     "@jsamr/counter-style": "^2.0.2",
     "@jsamr/react-native-li": "^2.3.1",
@@ -27,6 +28,7 @@
     "react-native": "0.71.8",
     "react-native-paper": "^5.8.0",
     "react-native-svg": "^13.9.0",
+    "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.10"
   },
   "devDependencies": {
