@@ -53,9 +53,9 @@ function App() {
           },
           tabBarActiveTintColor: "purple",
           tabBarInactiveTintColor: "gray",
-          tabBarItemStyle: { marginBottom: MARGIN_BOTTOM },
-          tabBarStyle: { height: ORIGINAL_TAB_BAR_HEIGHT + MARGIN_BOTTOM },
-          headerTitleAlign: "center",
+          // tabBarItemStyle: { marginBottom: MARGIN_BOTTOM },
+          // tabBarStyle: { height: ORIGINAL_TAB_BAR_HEIGHT + MARGIN_BOTTOM },
+          // headerTitleAlign: "center",
         })}
       >
         <Tab.Screen name="Home" component={HomePage} />
