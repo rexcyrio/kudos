@@ -21,3 +21,42 @@ export type SecondPageProps = NativeStackScreenProps<
   RootStackParamList,
   "SecondPage"
 >;
+
+export type Person = {
+  id: string;
+  job: string;
+  location: string;
+  name: string;
+  points: number;
+  profilePicture: string;
+};
+
+export type Notification = {
+  id: string;
+  timestamp: {
+    nanoseconds: number;
+    seconds: number;
+  };
+  points: number;
+};
+
+export type SearchPageStackParamList = {
+  SearchPage: undefined;
+  LeaderboardPage: undefined;
+  PersonProfilePage: { id: string };
+};
+
+export type SearchPageProps = NativeStackScreenProps<
+  SearchPageStackParamList,
+  "SearchPage"
+>;
+
+export type LeaderboardPageProps = NativeStackScreenProps<
+  SearchPageStackParamList,
+  "LeaderboardPage"
+>;
+
+export type PersonProfilePageProps = NativeStackScreenProps<
+  SearchPageStackParamList,
+  "PersonProfilePage"
+>;
