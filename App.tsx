@@ -10,6 +10,7 @@ import ProfilePage from "./src/pages/ProfilePage";
 import SearchPage from "./src/pages/SearchPage";
 import SettingsPage from "./src/pages/SettingsPage";
 import { RootStackParamList } from "./src/utilities/types";
+import SearchPageWrapper from "./src/pages/SearchPageWrapper";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -65,7 +66,7 @@ function App() {
           <Tab.Screen name="Home" component={HomePage} />
           <Tab.Screen
             name="Search"
-            component={SearchPage}
+            component={SearchPageWrapper}
             options={{ headerShown: false }}
           />
           <Tab.Screen name="Profile" component={ProfilePage} />
