@@ -1,13 +1,13 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
+  Timestamp,
   addDoc,
   collection,
   doc,
   increment,
   onSnapshot,
   runTransaction,
-  serverTimestamp,
-  updateDoc,
+  updateDoc
 } from "firebase/firestore";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Keyboard, Text, TouchableOpacity, View } from "react-native";
@@ -115,7 +115,7 @@ function PersonProfilePage({
     const numPointsToBeAdded = Number.parseInt(userInput);
 
     const newPointsHistoryEntry = {
-      timestamp: serverTimestamp(),
+      timestamp: new Timestamp(Math.floor(Date.now() / 1000), 0),
       points: numPointsToBeAdded,
     };
 
