@@ -29,6 +29,8 @@ export type Person = {
   name: string;
   points: number;
   profilePicture: string;
+  badges: string[];
+  avatar: string;
 };
 
 export type Notification = {
