@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View, Image, Text, TouchableHighlight } from "react-native";
-import {Svg, Path} from 'react-native-svg';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { styles } from './MainProfilePageStyles';
@@ -14,7 +13,7 @@ function MainProfilePage({ name, jobTitle, navigation }): JSX.Element {
         <View style={styles.profileFrame}>
           <Image
             style={styles.profileImg}
-            source={require('/assets/profile_img1.png')}
+            source={require("../../../assets/profile_img1.png")}
           />
           <View style={styles.nameContainer}>
             <Text style={styles.name}>{name}</Text>
@@ -27,7 +26,7 @@ function MainProfilePage({ name, jobTitle, navigation }): JSX.Element {
           }}>
             <Image
               style={styles.editProfileImg}
-              source={require('/assets/pencil.png')}
+              source={require('../../../assets/pencil.png')}
             />
           </TouchableHighlight>
         </View>
@@ -35,7 +34,7 @@ function MainProfilePage({ name, jobTitle, navigation }): JSX.Element {
         <View style={styles.avatarContainer}>
           <Image
             style={styles.avatarImage}
-            source={require('/assets/avatar.png')}
+            source={require('../../../assets/avatar.png')}
           />
           <View style={styles.chooseAvatarContainer}>
             <Text style={styles.chooseAvatarText}>Choose Avatar</Text>
