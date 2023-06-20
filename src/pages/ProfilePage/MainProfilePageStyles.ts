@@ -1,54 +1,6 @@
-import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet } from 'react-native';
 
-function ProfilePage(): JSX.Element {
-  return (
-    <View style={styles.container}>
-      <View style={styles.profileFrame}>
-        <Image
-          style={styles.profileImg}
-          source={require("../../assets/profile_img1.png")}
-        />
-        <View style={styles.nameContainer}>
-          <Text style={styles.name}>{`Jethro Sim`}</Text>
-          <Text style={styles.title}>{`Product Manager`}</Text>
-          <Text style={styles.Points}>{`1000 points`}</Text>
-        </View>
-        <Image
-          style={styles.editProfileImg}
-          source={require("../../assets/pencil.png")}
-        />
-      </View>
-      <View style={styles.leftContent}>
-        <View style={styles.avatarContainer}>
-          <View style={styles.medalContainer}>
-          <Image
-            style={styles.medalIcon}
-            source={require("../../assets/silver_medal.png")}
-          />
-          <Image
-            style={styles.medalIcon}
-            source={require("../../assets/gold_medal.png")}
-          />
-          <Image
-            style={styles.medalIcon}
-            source={require("../../assets/platinum_medal.png")}
-          />
-          </View>
-          <Image
-            style={styles.avatarImage}
-            source={require("../../assets/avatar.png")}
-          />
-          <View style={styles.chooseAvatarContainer}>
-            <Text style={styles.chooseAvatarText}>Choose Avatar</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
@@ -151,5 +103,3 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 });
-
-export default ProfilePage;
