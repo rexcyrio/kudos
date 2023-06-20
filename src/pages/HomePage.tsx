@@ -1,18 +1,14 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import disc from "@jsamr/counter-style/presets/disc";
 import MarkedList from "@jsamr/react-native-li";
-import { ScrollView, StyleSheet, Text, View, Image } from "react-native";
-import React, { useEffect, useState } from 'react';
-import { Card, Title, Paragraph } from 'react-native-paper';
-import {
-  collection,
-  onSnapshot,
-  query,
-} from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Card } from "react-native-paper";
 import { db } from "../../firebase";
 import ViewLeaderboardButton from "../components/ViewLeaderboardButton";
 
-function HomePage(): JSX.Element {
+function HomePage({ navigation }): JSX.Element {
   const [name, setName] = useState(null);
   const [pic, setPic] = useState(null);
   const [points, setPoints] = useState(null);
@@ -24,7 +20,7 @@ function HomePage(): JSX.Element {
       const data = querySnapshot.docs.map((doc, index) => {
         return doc.data();
       });
-      
+
       setName(data[0].name);
       setPic(data[0].pic);
       setPoints(data[0].points);
