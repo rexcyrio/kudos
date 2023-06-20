@@ -2,9 +2,9 @@ import React from "react";
 import { Text, View } from "react-native";
 import ViewLeaderboardButton from "../components/ViewLeaderboardButton";
 import { nestedViewStyles } from "../utilities/css";
-import { SearchPageInnerProps } from "../utilities/types";
+import { SearchPageProps } from "../utilities/types";
 
-function SearchPageInner({ navigation, route }: SearchPageInnerProps) {
+function SearchPageInner({ navigation, route }: SearchPageProps) {
   return (
     <View style={nestedViewStyles.outerView}>
       <View style={nestedViewStyles.innerView}>

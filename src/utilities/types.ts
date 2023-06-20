@@ -41,14 +41,14 @@ export type Notification = {
 };
 
 export type SearchPageStackParamList = {
-  SearchPageInner: undefined;
+  SearchPage: undefined;
   LeaderboardPage: undefined;
   PersonProfilePage: { id: string };
 };
 
-export type SearchPageInnerProps = NativeStackScreenProps<
+export type SearchPageProps = NativeStackScreenProps<
   SearchPageStackParamList,
-  "SearchPageInner"
+  "SearchPage"
 >;
 
 export type LeaderboardPageProps = NativeStackScreenProps<

@@ -1,11 +1,9 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { SearchPageInnerProps } from "../utilities/types";
+import { SearchPageProps } from "../utilities/types";
 
-function ViewLeaderboardButton({
-  navigation,
-}: SearchPageInnerProps): JSX.Element {
+function ViewLeaderboardButton({ navigation }: SearchPageProps): JSX.Element {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate("LeaderboardPage")}
