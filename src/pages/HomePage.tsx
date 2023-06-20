@@ -1,18 +1,41 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import disc from "@jsamr/counter-style/presets/disc";
 import MarkedList from "@jsamr/react-native-li";
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Card } from "react-native-paper";
+import { ScrollView, StyleSheet, Text, View, Image } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { Card, Title, Paragraph } from 'react-native-paper';
+import {
+  collection,
+  onSnapshot,
+  query,
+} from "firebase/firestore";
+import { db } from "../../firebase";
 
 function HomePage(): JSX.Element {
-  const num = 1234567;
+  const [name, setName] = useState(null);
+  const [pic, setPic] = useState(null);
+  const [points, setPoints] = useState(null);
+
+  useEffect(() => {
+    const q = query(collection(db, "users"));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const data = querySnapshot.docs.map((doc, index) => {
+        return doc.data();
+      });
+      
+      setName(data[0].name);
+      setPic(data[0].pic);
+      setPoints(data[0].points);
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <ScrollView style={{ paddingHorizontal: 15 }}>
       <View style={{ marginBottom: 15 }}>
         <Text style={styles.title}>Welcome to Kudos</Text>
-        
         <Card>
           <Card.Content
             style={{
@@ -39,7 +62,7 @@ function HomePage(): JSX.Element {
             </View>
 
             <View>
-              <Text>{num}</Text>
+              <Text>{points}</Text>
             </View>
           </Card.Content>
         </Card>
@@ -68,21 +91,6 @@ function HomePage(): JSX.Element {
               </Text>
               <Text style={styles.unorderedListItem}>
                 Participate in a team-building activity
-              </Text>
-              <Text style={styles.unorderedListItem}>
-                Google LLC is an American multinational iiiiiiii technology
-              </Text>
-              <Text style={styles.unorderedListItem}>
-                A component can specify the layout of its children using the
-                Flexbox algorithm. Flexbox is designed to provide a consistent
-                layout on different screen sizes. You will normally use a
-                combination of flexDirection, alignItems, and justifyContent to
-                achieve the right layout.In the following example, the red,
-                orange, and green views are all children in the container view
-                that has flex: 1 set. The red view uses flex: 1 , the orange
-                view uses flex: 2, and the green view uses flex: 3 . 1+2+3 = 6,
-                which means that the red view will get 1/6 of the space, the
-                orange 2/6 of the space, and the green 3/6 of the space.
               </Text>
             </MarkedList>
           </Card.Content>
