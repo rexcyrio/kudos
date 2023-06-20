@@ -21,6 +21,20 @@ function ProfilePage(): JSX.Element {
       </View>
       <View style={styles.leftContent}>
         <View style={styles.avatarContainer}>
+          <View style={styles.medalContainer}>
+          <Image
+            style={styles.medalIcon}
+            source={require("../../assets/silver_medal.png")}
+          />
+          <Image
+            style={styles.medalIcon}
+            source={require("../../assets/gold_medal.png")}
+          />
+          <Image
+            style={styles.medalIcon}
+            source={require("../../assets/platinum_medal.png")}
+          />
+          </View>
           <Image
             style={styles.avatarImage}
             source={require("../../assets/avatar.png")}
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
   profileFrame: {
     flexDirection: "row",
     alignItems: "center",
-    height: 100,
+    height: 110,
     backgroundColor: "#e0e0e0",
   },
   editProfileImg: {
@@ -104,15 +118,27 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "black",
   },
+  medalContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  medalIcon: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 5,
+  },
   avatarImage: {
-    width: 120,
-    height: 120,
+    width: "80%",
+    height: "80%",
     borderRadius: 60,
   },
   chooseAvatarContainer: {
     backgroundColor: "#e9e9e9",
     padding: 10,
-    marginTop: 20,
+    marginTop: 0,
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -121,7 +147,8 @@ const styles = StyleSheet.create({
   },
   chooseAvatarText: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 22,
+    fontWeight: "500",
   },
 });
 
