@@ -9,6 +9,7 @@ import {
   Button,
   FlatList,
   Image,
+  ImageSourcePropType,
   StyleSheet,
   Text,
   TextInput,
@@ -17,6 +18,7 @@ import {
 } from "react-native";
 import { db } from "../../firebase";
 import { Person } from "../utilities/types";
+import { images } from "../components/Images";
 
 function SearchPage({ navigation }): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
@@ -55,7 +57,6 @@ function SearchPage({ navigation }): JSX.Element {
       });
 
       setPeople(posts);
-      console.log(posts);
     });
 
     return unsubscribe;
@@ -89,7 +90,23 @@ function SearchPage({ navigation }): JSX.Element {
                   style={styles.profileImage}
                 />
               </View>
-              <Text style={styles.resultItem}>{item.name}</Text>
+              <View style={styles.resultTextContainer}>
+                <Text style={styles.resultItem}>{item.name}</Text>
+                <Text style={styles.subtext}>{item.points} points</Text>
+                <View style={styles.badgesContainer}>
+                  {item.badges.map((badge, index) => (
+                    <Image
+                      key={index}
+                      source={images[badge]["uri"] as ImageSourcePropType}
+                      style={styles.badgeImage}
+                    />
+                  ))}
+                </View>
+              </View>
+              <Image
+                source={require("../../assets/avatar.png")}
+                style={styles.avatar}
+              />
             </View>
           </TouchableOpacity>
         )}
@@ -144,8 +161,29 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
   },
+  resultTextContainer: {
+    flex: 1,
+  },
   resultItem: {
     fontSize: 16,
+  },
+  subtext: {
+    fontSize: 14,
+    color: "#666666",
+    marginBottom: 4,
+  },
+  badgesContainer: {
+    flexDirection: "row",
+    marginTop: 4,
+  },
+  badgeImage: {
+    width: 20, // Adjust the width and height according to your badge image size
+    height: 20,
+    marginRight: 8,
+  },
+  avatar: {
+    width: 48,
+    height: 48,
   },
 });
 
