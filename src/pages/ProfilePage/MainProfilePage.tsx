@@ -35,20 +35,20 @@ function MainProfilePage({ name, jobTitle, navigation }): JSX.Element {
         <View style={styles.medalContainer}>
           <Image
             style={styles.medalIcon}
-            source={require("../../assets/silver_medal.png")}
+            source={require("../../../assets/silver_medal.png")}
           />
           <Image
             style={styles.medalIcon}
-            source={require("../../assets/gold_medal.png")}
+            source={require("../../../assets/gold_medal.png")}
           />
           <Image
             style={styles.medalIcon}
-            source={require("../../assets/platinum_medal.png")}
+            source={require("../../../assets/platinum_medal.png")}
           />
           </View>
           <Image
             style={styles.avatarImage}
-            source={require("../../assets/avatar.png")}
+            source={require("../../../assets/avatar.png")}
           />
           <View style={styles.chooseAvatarContainer}>
             <Text style={styles.chooseAvatarText}>Choose Avatar</Text>
