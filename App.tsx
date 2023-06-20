@@ -4,13 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { PaperProvider } from "react-native-paper";
-import HomePage from "./src/pages/HomePage";
+import HomePageWrapper from "./src/pages/HomePageWrapper";
 import NotificationsPage from "./src/pages/NotificationsPage";
 import ProfilePage from "./src/pages/ProfilePage";
-import SearchPage from "./src/pages/SearchPage";
+import SearchPageWrapper from "./src/pages/SearchPageWrapper";
 import SettingsPage from "./src/pages/SettingsPage";
 import { RootStackParamList } from "./src/utilities/types";
-import SearchPageWrapper from "./src/pages/SearchPageWrapper";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -63,7 +62,11 @@ function App() {
             // headerTitleAlign: "center",
           })}
         >
-          <Tab.Screen name="Home" component={HomePage} />
+          <Tab.Screen
+            name="Home"
+            component={HomePageWrapper}
+            options={{ headerShown: false }}
+          />
           <Tab.Screen
             name="Search"
             component={SearchPageWrapper}

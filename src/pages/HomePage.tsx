@@ -4,8 +4,9 @@ import MarkedList from "@jsamr/react-native-li";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Card } from "react-native-paper";
+import ViewLeaderboardButton from "../components/ViewLeaderboardButton";
 
-function HomePage(): JSX.Element {
+function HomePage({ navigation, route }): JSX.Element {
   const num = 1234567;
 
   return (
@@ -88,6 +89,8 @@ function HomePage(): JSX.Element {
           </Card.Content>
         </Card>
       </View>
+
+      <ViewLeaderboardButton navigation={navigation} />
     </ScrollView>
   );
 }
