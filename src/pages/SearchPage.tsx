@@ -6,30 +6,37 @@ import {
 } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
   Button,
-  StyleSheet,
   FlatList,
   Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { db } from "../../firebase";
+import { Person } from "../utilities/types";
 
-function SearchPage(): JSX.Element {
+function SearchPage({ navigation }): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState<DocumentData[]>([]);
-  const [people, setPeople] = useState<DocumentData[]>([]);
+  const [searchResults, setSearchResults] = useState<Person[]>([]);
+  const [people, setPeople] = useState<Person[]>([]);
 
   const handleSearch = useCallback(() => {
     // Perform the search logic here
 
-    const filteredResults = people.filter((item: DocumentData) =>
+    if (searchTerm === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    const filteredResults = people.filter((item: Person) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     setSearchResults(filteredResults);
-  }, [searchTerm]);
+  }, [searchTerm, people]);
 
   const handleSearchTermChange = (text: string) => {
     setSearchTerm(text);
@@ -44,7 +51,7 @@ function SearchPage(): JSX.Element {
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const posts = querySnapshot.docs.map((doc, index) => {
-        return doc.data();
+        return { id: doc.id, ...doc.data() } as Person;
       });
 
       setPeople(posts);
@@ -70,15 +77,21 @@ function SearchPage(): JSX.Element {
       <FlatList
         data={searchResults}
         renderItem={({ item }) => (
-          <View style={styles.resultContainer}>
-            <View style={styles.profileCircle}>
-              <Image
-                source={{ uri: item.profilePicture }}
-                style={styles.profileImage}
-              />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("PersonProfilePage", { id: item.id })
+            }
+          >
+            <View style={styles.resultContainer}>
+              <View style={styles.profileCircle}>
+                <Image
+                  source={{ uri: item.profilePicture }}
+                  style={styles.profileImage}
+                />
+              </View>
+              <Text style={styles.resultItem}>{item.name}</Text>
             </View>
-            <Text style={styles.resultItem}>{item.name}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

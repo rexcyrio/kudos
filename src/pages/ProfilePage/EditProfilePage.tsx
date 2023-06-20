@@ -15,7 +15,7 @@ const EditProfilePage = ({ name, jobTitle, navigation, setName, setJobTitle }) =
         path: 'images',
       },
     };
-  
+
     launchImageLibrary(options, (response: any) => {
         if (response.didCancel) {
             console.log('User cancelled image picker');
@@ -28,7 +28,7 @@ const EditProfilePage = ({ name, jobTitle, navigation, setName, setJobTitle }) =
         }
     });
   };
-  
+
 
   const handleSaveChanges = () => {
     // Save the updated profile information to a database or API
@@ -41,7 +41,7 @@ const EditProfilePage = ({ name, jobTitle, navigation, setName, setJobTitle }) =
         {profilePic ? (
           <Image style={styles.profileImg} source={{ uri: profilePic }} />
         ) : (
-          <Image style={styles.profileImg} source={require('/assets/profile_img1.png')} />
+          <Image style={styles.profileImg} source={require('../../../assets/profile_img1.png')} />
         )}
         <Text>Change Profile Picture</Text>
       </TouchableOpacity>
