@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { Person } from "../utilities/types";
+import { mappingAvatarNameToImageSource } from "../pages/ProfilePage/MainProfilePage";
 
 type PersonProps = {
   person: Person;
@@ -43,12 +44,10 @@ function PersonComponent({ person }: PersonProps): JSX.Element {
         </View>
       </View>
       <Image
-        source={{
-          uri: "https://i.pinimg.com/236x/1f/ba/a6/1fbaa6ee16e44a8e1f86403e0f6ac982--frogs-funny-cat-pictures.jpg",
-        }}
+        source={mappingAvatarNameToImageSource[person.avatar]}
         style={{
-          width: HEIGHT / 2,
-          height: HEIGHT / 2,
+          width: 0.75 * HEIGHT,
+          height: 0.75 * HEIGHT,
         }}
       />
     </View>

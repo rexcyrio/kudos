@@ -138,7 +138,7 @@ const mainProfilePageStyles = StyleSheet.create({
   },
 });
 
-const mappingAvatarNameToImageSource: { [key: string]: ImageSourcePropType } = {
+export const mappingAvatarNameToImageSource: { [key: string]: ImageSourcePropType } = {
   blank: require("../../../assets/avatar_redo_1.png"),
   pink: require("../../../assets/avatar_redo_2.png"),
   dog: require("../../../assets/avatar_redo_3.png"),
