@@ -96,8 +96,6 @@ function LoginPage(props: any) {
       </TouchableOpacity>
     </View>
   </View>
-
-    
   );
 }
 

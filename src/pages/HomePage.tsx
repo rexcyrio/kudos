@@ -3,7 +3,7 @@ import disc from "@jsamr/counter-style/presets/disc";
 import MarkedList from "@jsamr/react-native-li";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
 import { auth, db } from "../../firebase";
 import ViewLeaderboardButton from "../components/ViewLeaderboardButton";
@@ -108,7 +108,10 @@ function HomePage({ navigation }): JSX.Element {
       </View>
 
       <ViewLeaderboardButton navigation={navigation} />
-      <Button title="Sign Out" onPress={handleSignOut} color="#FF3B30" />
+
+      <TouchableOpacity style={styles.signoutButton} onPress={handleSignOut}>
+        <Text style={styles.signoutButtonText}>Sign out</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -122,6 +125,15 @@ const styles = StyleSheet.create({
   },
   unorderedListItem: {
     flexShrink: 1,
+  },
+  signoutButton: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  signoutButtonText: {
+    color: '#FFAFED',
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 });
 
