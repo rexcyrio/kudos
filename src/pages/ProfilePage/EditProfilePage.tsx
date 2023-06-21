@@ -5,15 +5,14 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TextInput,
   Button,
 } from "react-native";
 import { launchImageLibrary, MediaType } from "react-native-image-picker";
 import { Feather } from "@expo/vector-icons";
 import { styles } from "./EditProfilePageStyles";
 
-import { db } from "../../firebase";
-import { Person, PersonProfilePageProps } from "../utilities/types";
+import { db } from "../../../firebase";
+import { Person, PersonProfilePageProps } from "../../utilities/types";
 import { AppStateContext } from "../../../App";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 

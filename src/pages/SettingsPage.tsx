@@ -79,7 +79,7 @@ function SettingsPage() {
             <View style={styles.profileAvatarWrapper}>
               
               <Image style={styles.profileAvatar} source={require("../../assets/profile_img1.png")} />
-
+            </View>
           <Text style={styles.profileName}>Jethro Sim</Text>
           <Text style={styles.profilePoints}>Points: 1000</Text>
         </View>
