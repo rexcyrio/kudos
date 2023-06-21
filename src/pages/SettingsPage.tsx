@@ -1,14 +1,25 @@
-import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Image, Text, TouchableOpacity, Switch } from "react-native";
-import { Feather } from '@expo/vector-icons';
+import React, { useContext } from "react";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  Switch,
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { AppStateContext } from "../../App";
 
 const SECTIONS = [
   {
-    header: 'Preferences',
-    icon: 'settings',
+    header: "Preferences",
+    icon: "settings",
     items: [
-      { icon: 'globe', color: '#fe9400', label: 'Language', type: 'link' },
+      { icon: "globe", color: "#fe9400", label: "Language", type: "link" },
       {
+
         id: 'darkMode',
         icon: 'moon',
         color: '#007afe',
@@ -20,38 +31,40 @@ const SECTIONS = [
         label: 'Location', 
         type: 'link' 
       },
+      { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
       {
-        id: 'enableSound',
-        icon: 'speaker',
-        color: '#32c759',
-        label: 'Enable sound',
-        type: 'toggle',
+        id: "enableSound",
+        icon: "speaker",
+        color: "#32c759",
+        label: "Enable sound",
+        type: "toggle",
       },
       {
-        id: 'enableNotifications',
-        icon: 'bell',
-        color: '#fd2d54',
-        label: 'Enable notifications',
-        type: 'toggle',
+        id: "enableNotifications",
+        icon: "bell",
+        color: "#fd2d54",
+        label: "Enable notifications",
+        type: "toggle",
       },
     ],
   },
   {
-    header: 'Help',
-    icon: 'help-circle',
+    header: "Help",
+    icon: "help-circle",
     items: [
-      { icon: 'flag', color: '#8e8d91', label: 'Report Bug', type: 'link' },
+      { icon: "flag", color: "#8e8d91", label: "Report Bug", type: "link" },
       {
-        icon: 'mail',
-        color: '#007afe',
-        label: 'Contact Us',
-        type: 'link',
+        icon: "mail",
+        color: "#007afe",
+        label: "Contact Us",
+        type: "link",
       },
     ],
   },
 ];
 
 function SettingsPage() {
+  const person = useContext(AppStateContext);
   const [form, setForm] = React.useState({
     darkMode: true,
     wifi: false,
@@ -64,9 +77,8 @@ function SettingsPage() {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.profile}>
             <View style={styles.profileAvatarWrapper}>
+              
               <Image style={styles.profileAvatar} source={require("../../assets/profile_img1.png")} />
-            </View>
-
 
           <Text style={styles.profileName}>Jethro Sim</Text>
           <Text style={styles.profilePoints}>Points: 1000</Text>
@@ -85,11 +97,18 @@ function SettingsPage() {
 
                   <View style={{ flex: 1 }} />
 
-                  {type === 'toggle' && (
-                    <Switch value={form[id]} onValueChange={(value) => setForm({ ...form, [id]: value })} />
+                  {type === "toggle" && (
+                    <Switch
+                      value={form[id]}
+                      onValueChange={(value) =>
+                        setForm({ ...form, [id]: value })
+                      }
+                    />
                   )}
 
-                  {type === 'link' && <Feather name="chevron-right" color="#0c0c0c" size={22} />}
+                  {type === "link" && (
+                    <Feather name="chevron-right" color="#0c0c0c" size={22} />
+                  )}
                 </View>
               </TouchableOpacity>
             ))}
@@ -106,21 +125,21 @@ const styles = StyleSheet.create({
   },
   profile: {
     padding: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   profileName: {
     marginTop: 20,
     fontSize: 19,
-    fontWeight: '600',
-    color: '#414d63',
-    textAlign: 'center',
+    fontWeight: "600",
+    color: "#414d63",
+    textAlign: "center",
   },
   profilePoints: {
     marginTop: 5,
     fontSize: 16,
-    color: '#989898',
-    textAlign: 'center',
+    color: "#989898",
+    textAlign: "center",
   },
   profileAvatar: {
     width: 72,
@@ -128,18 +147,18 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
   },
   profileAvatarWrapper: {
-    position: 'relative',
+    position: "relative",
   },
   profileAction: {
     width: 28,
     height: 28,
     borderRadius: 9999,
-    backgroundColor: '#007bff',
-    position: 'absolute',
+    backgroundColor: "#007bff",
+    position: "absolute",
     right: -4,
     bottom: -10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   section: {
     paddingHorizontal: 24,
@@ -147,31 +166,31 @@ const styles = StyleSheet.create({
   sectionHeader: {
     paddingVertical: 12,
     fontSize: 12,
-    fontWeight: '600',
-    color: '#9e9e9e',
-    textTransform: 'uppercase',
+    fontWeight: "600",
+    color: "#9e9e9e",
+    textTransform: "uppercase",
     letterSpacing: 1.1,
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
     height: 50,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: "#f2f2f2",
     borderRadius: 8,
     marginBottom: 12,
     paddingHorizontal: 12,
   },
   rowLabel: {
     fontSize: 17,
-    color: '#0c0c0c',
+    color: "#0c0c0c",
   },
   rowIcon: {
     width: 32,
     height: 32,
     borderRadius: 999,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 12,
   },
 });

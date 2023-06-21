@@ -8,21 +8,17 @@ import EditProfilePage from "./EditProfilePage";
 
 function ProfilePages() {
 
-    const [name, setName] = useState("Jethro Sim");
-    const [jobTitle, setJobTitle] = useState("Software Engineer");
     const Stack = createNativeStackNavigator();
     return (
         <Stack.Navigator initialRouteName="MainProfilePage">
             <Stack.Screen 
                 name="MainProfilePage"
-                children={(props) => (
-                    <MainProfilePage {...props} name={name} jobTitle={jobTitle} />
-                )}/>
+                component={MainProfilePage}
+            />
             <Stack.Screen
                 name="EditProfilePage"
-                children={(props) => (
-                    <EditProfilePage {...props} name={name} jobTitle={jobTitle} setName={setName} setJobTitle={setJobTitle} />
-                )}/>
+                component={EditProfilePage}
+            />
         </Stack.Navigator>
     );
 }

@@ -1,21 +1,28 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Image, View, Text, TouchableOpacity, Button } from "react-native";
+import React, { useCallback, useEffect, useRef, useState, useContext } from "react";
 import { TextInput } from "react-native-paper";
+import {
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Button,
+} from "react-native";
 import { launchImageLibrary, MediaType } from "react-native-image-picker";
 import { Feather } from "@expo/vector-icons";
 import { styles } from "./EditProfilePageStyles";
+
 import { db } from "../../firebase";
 import { Person, PersonProfilePageProps } from "../utilities/types";
+import { AppStateContext } from "../../../App";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 
-const EditProfilePage = ({
-  name,
-  jobTitle,
-  navigation,
-  setName,
-  setJobTitle,
-}) => {
+
+  const EditProfilePage = () => {
   const [profilePic, setProfilePic] = useState(null);
-  const [person, setPerson] = useState<Person | null>(null);
+
+  const currentPerson = useContext(AppStateContext);
+  const [person, setPerson] = useState(currentPerson);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [helperText, setHelperText] = useState("");
@@ -24,6 +31,7 @@ const EditProfilePage = ({
   const [transactionErrorMessage, setTransactionErrorMessage] = useState("");
 
   const ref = useRef<React.ReactElement>(null);
+
 
   const handleProfilePicChange = () => {
     const options = {
@@ -48,9 +56,14 @@ const EditProfilePage = ({
     });
   };
 
-  const handleSaveChanges = () => {
-    // Save the updated profile information to a database or API
-    console.log("Saving changes...");
+  const handleSaveChanges = async () => {
+    const userRef = doc(db, "users", currentPerson.id);
+
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(userRef, {
+      job: person.job,
+      name: person.name,
+    });
   };
 
   return (
@@ -70,6 +83,7 @@ const EditProfilePage = ({
           )}
         </View>
       </TouchableOpacity>
+      
       <Text style={styles.prompt}>
         Edit name <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
       </Text>
@@ -78,8 +92,8 @@ const EditProfilePage = ({
           inputMode="text"
           autoFocus={true}
           placeholder="Name"
-          value={name}
-          onChangeText={setName}
+          value={person?.name}
+          onChangeText={(name) => setPerson({ ...person, name: name })}
           style={styles.textInput}
         />
       </View>
@@ -92,8 +106,8 @@ const EditProfilePage = ({
           inputMode="text"
           autoFocus={true}
           placeholder="Job Description"
-          value={jobTitle}
-          onChangeText={setJobTitle}
+          value={person?.job}
+          onChangeText={(job) => setPerson({ ...person, job: job })}
           style={styles.textInput}
         />
       </View>
