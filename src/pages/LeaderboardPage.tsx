@@ -39,8 +39,14 @@ function LeaderboardPage({
     const q = query(collection(db, "users"), ...queryConstraints);
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-       
+      const persons = querySnapshot.docs.map((doc, index) => {
+        const person = {
+          id: doc.id,
+          ...doc.data(),
+        } as Person;
 
+        return person;
+      });
       setPersons(persons);
     });
 

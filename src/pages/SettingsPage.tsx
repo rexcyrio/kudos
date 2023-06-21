@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -10,6 +10,7 @@ import {
   Switch,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { AppStateContext } from "../../App";
 
 const SECTIONS = [
   {
@@ -57,7 +58,7 @@ const SECTIONS = [
 ];
 
 function SettingsPage() {
-  const person = getContext(AppStateContext);
+  const person = useContext(AppStateContext);
   const [form, setForm] = React.useState({
     darkMode: true,
     wifi: false,
