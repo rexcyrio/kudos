@@ -47,7 +47,6 @@ function LeaderboardPage({
 
         return person;
       });
-
       setPersons(persons);
     });
 

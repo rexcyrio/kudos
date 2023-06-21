@@ -3,10 +3,11 @@ import disc from "@jsamr/counter-style/presets/disc";
 import MarkedList from "@jsamr/react-native-li";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Card } from "react-native-paper";
-import { db } from "../../firebase";
+import { auth, db } from "../../firebase";
 import ViewLeaderboardButton from "../components/ViewLeaderboardButton";
+import { signOut } from "firebase/auth";
 
 function HomePage({ navigation }): JSX.Element {
   const [name, setName] = useState(null);
@@ -28,6 +29,18 @@ function HomePage({ navigation }): JSX.Element {
 
     return unsubscribe;
   }, []);
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("User signed out");
+      })
+      .catch((error: { code: any; message: any }) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Sign out error:", errorCode, errorMessage);
+      });
+  };
 
   return (
     <ScrollView style={{ paddingHorizontal: 15 }}>
@@ -95,6 +108,7 @@ function HomePage({ navigation }): JSX.Element {
       </View>
 
       <ViewLeaderboardButton navigation={navigation} />
+      <Button title="Sign Out" onPress={handleSignOut} color="#FF3B30" />
     </ScrollView>
   );
 }

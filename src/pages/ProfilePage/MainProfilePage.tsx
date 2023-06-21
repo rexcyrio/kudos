@@ -1,5 +1,5 @@
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -11,18 +11,19 @@ import {
   View,
 } from "react-native";
 import { Modal, Portal, RadioButton } from "react-native-paper";
+import { AppStateContext } from "../../../App";
 import { db } from "../../../firebase";
 import { Person } from "../../utilities/types";
 import { styles } from "./MainProfilePageStyles";
 
 const CURRENT_USER_ID = "0yBSbH8Vt0Ozi3lDCaraDzAR6nv2";
 
-function MainProfilePage({ name, jobTitle, navigation }): JSX.Element {
-  const [person, setPerson] = useState<Person | null>(null);
+function MainProfilePage(): JSX.Element {
+  const currentPerson = useContext(AppStateContext);
+  const [person, setPerson] = useState(currentPerson);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-
-  // FIXME: updateDoc 
+  // FIXME: updateDoc
   const [radioButtonValue, setRadioButtonValue] = useState(
     person?.avatar ?? "blank"
   );
@@ -70,9 +71,9 @@ function MainProfilePage({ name, jobTitle, navigation }): JSX.Element {
           source={require("../../../assets/profile_img1.png")}
         />
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.title}>{jobTitle}</Text>
-          <Text style={styles.Points}>{`1000 points`}</Text>
+          <Text style={styles.name}>{currentPerson?.name}</Text>
+          <Text style={styles.title}>{currentPerson?.job}</Text>
+          <Text style={styles.Points}>{currentPerson?.points}</Text>
         </View>
         <TouchableHighlight
           onPress={() => {

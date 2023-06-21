@@ -10,7 +10,7 @@ import {
   updateDoc
 } from "firebase/firestore";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Keyboard, Text, TouchableOpacity, View } from "react-native";
+import { Button, Keyboard, Text, TouchableOpacity, View, StyleSheet, Image } from "react-native";
 import {
   HelperText,
   Modal,
@@ -20,6 +20,7 @@ import {
 } from "react-native-paper";
 import { db } from "../../firebase";
 import { Person, PersonProfilePageProps } from "../utilities/types";
+import { MaterialIcons } from '@expo/vector-icons';
 
 function PersonProfilePage({
   navigation,
@@ -158,31 +159,38 @@ function PersonProfilePage({
   }, []);
 
   return (
-    <View style={{ height: "100%" }}>
+    <View style={styles.container}>
+      {person && (
+        <View style={styles.headerContent}>
+          <View style={styles.profileInfoItem}>
+            <Image source={{ uri: person.profilePicture }} style={styles.avatar} />
+          </View>
+          <View style={styles.profileInfoItem}>
+            <Text style={styles.name}>{person.name}</Text>
+          </View>
+          <View style={styles.profileInfoItem}>
+            <Text style={styles.userInfo}>{person.job}</Text>
+          </View>
+          <View style={styles.profileInfoItem}>
+            <Text style={styles.userInfo}>{person.location}</Text>
+          </View>
+        </View>
+      )}
+
       <TouchableOpacity
         onPress={handleModalOpen}
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 5,
-          borderRadius: 10,
-          backgroundColor: "lightgray",
-          paddingVertical: 3,
-          paddingHorizontal: 5,
-        }}
+        style={styles.addButton}
       >
-        <Text>+</Text>
-        <MaterialCommunityIcons name="cards-heart" size={24} color="#ce00ff" />
+        <MaterialCommunityIcons name="plus" size={24} color="#ce00ff" style={styles.addButtonIcon} />
+        <Text>Add Kindness Points  </Text>
+        <MaterialCommunityIcons name="cards-heart" size={16} color="#ce00ff" />
       </TouchableOpacity>
 
-      <View>
-        <Text>id: {person?.id}</Text>
-        <Text>job: {person?.job}</Text>
-        <Text>location: {person?.location}</Text>
-        <Text>name: {person?.name}</Text>
-        <Text>profilePicture: {person?.profilePicture}</Text>
+      <View style={styles.pointsContainer}>
+        <Text style={styles.pointsBody}>Kindness Points</Text>
+        <Text style={styles.pointsBody}>{person?.points}</Text>
       </View>
-
+  
       <Snackbar
         visible={isSnackbarVisible}
         onDismiss={handleSnackbarClose}
@@ -200,42 +208,157 @@ function PersonProfilePage({
           <Text>ERROR: {transactionErrorMessage}</Text>
         )}
       </Snackbar>
-
+  
       <Portal>
         <Modal
           visible={isModalVisible}
           onDismiss={handleModalClose}
-          contentContainerStyle={{
-            backgroundColor: "white",
-            padding: 20,
-          }}
+          contentContainerStyle={styles.modalContent}
         >
-          <Text style={{ marginBottom: 10 }}>
+          <Text style={styles.modalTitle}>
             How many Kindness points would you like to award{" "}
-            <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>?
+            <Text style={styles.modalTitleBold}>{person?.name}</Text>?
           </Text>
           <TextInput
-            inputMode="numeric"
+            mode="outlined"
             value={userInput}
             error={helperText !== ""}
             onChangeText={handleChangeText}
+            keyboardType="numeric"
             autoFocus={true}
-            ref={ref}
-            onPressIn={reshowKeyboardIfNeeded}
+            style={styles.input}
           />
-          <HelperText
-            type="error"
-            visible={helperText !== ""}
-            style={{ marginBottom: 15 }}
-          >
+          <HelperText type="error" visible={helperText !== ""}>
             {helperText}
           </HelperText>
-          <Button title="Confirm" onPress={handleConfirm} />
+          <Button
+            title="Confirm"
+            onPress={handleConfirm}
+            disabled={helperText !== ""}
+          />
         </Modal>
       </Portal>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: '#DCDCDC',
+  },
+  headerContent: {
+    padding: 30,
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: 'white',
+    marginBottom: 10,
+  },
+  pointsContainer: {
+    marginTop: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#f5f5f5',
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    marginBottom: 10,
+    gap: 10
+  },
+  pointsBody: {
+    fontSize: 12,
+    color: '#000000',
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  name: {
+    fontSize: 22,
+    color: '#000000',
+    fontWeight: '600',
+  },
+  userInfo: {
+    fontSize: 16,
+    color: '#778899',
+    fontWeight: '600',
+  },
+  body: {
+    backgroundColor: '#778899',
+    height: 500,
+    alignItems: 'center',
+  },
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  infoContent: {
+    flex: 1,
+    alignItems: 'flex-start',
+    paddingLeft: 5,
+  },
+  iconContent: {
+    flex: 1,
+    alignItems: 'flex-end',
+    paddingRight: 5,
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    marginTop: 20,
+  },
+  info: {
+    fontSize: 18,
+    marginTop: 20,
+    color: '#FFFFFF',
+  },
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#FFDCF8',
+    alignItems: 'center',
+  },
+  addButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: 'lightgray',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  addButtonIcon: {
+    marginRight: 5,
+  },
+  profileInfo: {
+    marginBottom: 10,
+  },
+  profileInfoItem: {
+    marginBottom: 5,
+  },
+  profileInfoText: {
+    fontSize: 16,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+  },
+  modalTitle: {
+    marginBottom: 10,
+    fontSize: 18,
+  },
+  modalTitleBold: {
+    fontWeight: 'bold',
+  },
+  input: {
+    marginBottom: 15,
+  },
+});
+
 
 const onlyDigits = /^[0-9]+$/;
 
