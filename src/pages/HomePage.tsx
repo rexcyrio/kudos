@@ -1,9 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import disc from "@jsamr/counter-style/presets/disc";
 import MarkedList from "@jsamr/react-native-li";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import React, { useEffect, useState, useContext } from "react";
+import { Button, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { signOut } from "firebase/auth";
-import React, { useContext } from "react";
-import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Card } from "react-native-paper";
 import { AppStateContext } from "../../context";
 import { auth } from "../../firebase";
@@ -89,8 +90,11 @@ function HomePage({ navigation, route }): JSX.Element {
         </Card>
       </View>
 
-      <ViewLeaderboardButton navigation={navigation} route={route} />
-      <Button title="Sign Out" onPress={handleSignOut} color="#FF3B30" />
+      <ViewLeaderboardButton navigation={navigation} />
+
+      <TouchableOpacity style={styles.signoutButton} onPress={handleSignOut}>
+        <Text style={styles.signoutButtonText}>Sign out</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -104,6 +108,15 @@ const styles = StyleSheet.create({
   },
   unorderedListItem: {
     flexShrink: 1,
+  },
+  signoutButton: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  signoutButtonText: {
+    color: '#FFAFED',
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 });
 

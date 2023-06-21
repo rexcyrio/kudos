@@ -8,16 +8,13 @@ function ViewLeaderboardButton({ navigation }: SearchPageProps): JSX.Element {
     <TouchableOpacity
       onPress={() => navigation.navigate("LeaderboardPage")}
       style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-
-        borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "gray",
-        borderRadius: 5,
-        paddingVertical: 5,
+        backgroundColor: '#FFAFED',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 10,
+        width: '100%',
+        alignItems: 'center',
+        marginBottom: 10,
       }}
     >
       <Text
@@ -28,7 +25,6 @@ function ViewLeaderboardButton({ navigation }: SearchPageProps): JSX.Element {
       >
         View Leaderboard
       </Text>
-      <MaterialIcons name="chevron-right" size={24} color="black" />
     </TouchableOpacity>
   );
 }
