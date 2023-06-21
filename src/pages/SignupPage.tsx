@@ -13,8 +13,8 @@ import { styles } from "./ProfilePage/EditProfilePageStyles";
 
 import { db } from "../../firebase";
 import { Person, PersonProfilePageProps } from "../utilities/types";
-import { AppStateContext } from "../../App";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { AppStateContext } from "../../context";
 
 const SignupPage = (props: any) => {
   const { uid } = props;

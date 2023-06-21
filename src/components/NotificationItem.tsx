@@ -27,7 +27,6 @@ function NotificationItem({
         marginTop: index === 0 ? 10 : 0,
         marginBottom: 10,
         marginHorizontal: 5,
-        backgroundColor: "yellow",
       }}
     >
       <View>

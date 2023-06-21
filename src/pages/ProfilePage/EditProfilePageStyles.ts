@@ -46,8 +46,36 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 10,
   },
+  modalContentContainer: {
+    backgroundColor: "white",
+    padding: 20,
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+    width: "50%",
+  },
   buttonContainer: {
-    marginVertical: 20,
-    width: 200,
+    flex: 1,
+    marginHorizontal: 5,
+    borderRadius: 10,
+    overflow: "hidden",
+    width: "50%",
+  },
+  button: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 12,
+    backgroundColor: "green",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

@@ -50,7 +50,7 @@ function MainProfilePage({ navigation }): JSX.Element {
           <Text style={styles.title}>{currentPerson?.job}</Text>
           <Text style={styles.Points}>Points: {currentPerson?.points}</Text>
         </View>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate("EditProfilePage");
             console.log("Edit Profile Page");
@@ -60,7 +60,7 @@ function MainProfilePage({ navigation }): JSX.Element {
             style={styles.editProfileImg}
             source={require("../../../assets/pencil.png")}
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
       <View style={styles.leftContent}>
         <View style={styles.avatarContainer}>
@@ -138,7 +138,7 @@ const mainProfilePageStyles = StyleSheet.create({
   },
 });
 
-const mappingAvatarNameToImageSource: { [key: string]: ImageSourcePropType } = {
+export const mappingAvatarNameToImageSource: { [key: string]: ImageSourcePropType } = {
   blank: require("../../../assets/avatar_redo_1.png"),
   pink: require("../../../assets/avatar_redo_2.png"),
   dog: require("../../../assets/avatar_redo_3.png"),
