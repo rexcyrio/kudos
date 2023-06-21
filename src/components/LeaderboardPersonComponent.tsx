@@ -29,7 +29,7 @@ function LeaderboardPersonComponent({
         marginBottom: 10,
         paddingVertical: 5,
         paddingHorizontal: 10,
-        backgroundColor: "yellow",
+        backgroundColor: "#FFDCF8",
       }}
       onPress={() =>
         navigation.navigate("PersonProfilePage", { id: person.id })
