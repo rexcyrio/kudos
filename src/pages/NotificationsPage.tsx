@@ -1,18 +1,18 @@
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import { db } from "../../firebase";
 import NotificationItem from "../components/NotificationItem";
 import { Notification } from "../utilities/types";
-
-const USER_ID = "IA3mQj16E0EfLJYRRl1z";
+import { AppStateContext } from "../../context";
 
 function NotificationsPage(): JSX.Element {
+  const person = useContext(AppStateContext)
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   useEffect(() => {
     const q = query(
-      collection(db, "users", USER_ID, "pointsHistory"),
+      collection(db, "users", person.id, "pointsHistory"),
       orderBy("timestamp", "desc")
     );
 
@@ -30,7 +30,7 @@ function NotificationsPage(): JSX.Element {
     });
 
     return unsubscribe;
-  }, []);
+  }, [person.id]);
 
   return (
     <View>
