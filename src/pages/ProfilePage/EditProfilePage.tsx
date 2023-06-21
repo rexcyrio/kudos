@@ -151,7 +151,7 @@ const EditProfilePage = () => {
           visible={isModalVisible}
           onDismiss={handleModalClose}
           contentContainerStyle={{
-            backgroundColor: "white",megmo
+            backgroundColor: "white",
             padding: 20,
             flexDirection: "row",
             justifyContent: "space-around",
