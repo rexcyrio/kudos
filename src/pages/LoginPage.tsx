@@ -9,10 +9,13 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Button, StyleSheet, TextInput, View } from "react-native";
+import { signup } from "../utilities/signup";
 
 function LoginPage(props: any) {
   const { setUid } = props;
   const [user, setUser] = useState<User | null>(null);
+
+  console.log("Login page");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -30,8 +33,9 @@ function LoginPage(props: any) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        setUid(user.uid);
         console.log("User signed up:", user.uid);
+        signup(user.uid);
+        setUid(user.uid);
       })
       .catch((error) => {
         const errorCode = error.code;
