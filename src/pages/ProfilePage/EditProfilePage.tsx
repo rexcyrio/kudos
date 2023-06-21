@@ -143,47 +143,15 @@ const EditProfilePage = () => {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Save Changes" onPress={handleSaveChanges} />
+          <Button title="Save Changes" onPress={handleModalOpen} />
         </View>
 
-      </TouchableOpacity>
-
-      <Text style={styles.prompt}>
-        Edit name <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
-      </Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          inputMode="text"
-          autoFocus={true}
-          placeholder="Name"
-          value={person?.name}
-          onChangeText={(name) => setPerson({ ...person, name: name })}
-          style={styles.textInput}
-        />
-      </View>
-      <Text style={styles.prompt}>
-        Edit job description{" "}
-        <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
-      </Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          inputMode="text"
-          autoFocus={true}
-          placeholder="Job Description"
-          value={person?.job}
-          onChangeText={(job) => setPerson({ ...person, job: job })}
-          style={styles.textInput}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Save Changes" onPress={handleModalOpen} />
-      </View>
       <Portal>
         <Modal
           visible={isModalVisible}
           onDismiss={handleModalClose}
           contentContainerStyle={{
-            backgroundColor: "white",
+            backgroundColor: "white",megmo
             padding: 20,
             flexDirection: "row",
             justifyContent: "space-around",

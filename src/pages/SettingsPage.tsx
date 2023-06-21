@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-import { AppStateContext } from "../../App";
+import { AppStateContext } from "../../context";
 
 const SECTIONS = [
   {
@@ -27,7 +27,6 @@ const SECTIONS = [
         type: "toggle",
       },
 
-      { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
       { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
 
       {
