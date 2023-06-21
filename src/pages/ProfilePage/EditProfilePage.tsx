@@ -60,7 +60,7 @@ const EditProfilePage = () => {
         ) : (
           <Image
             style={styles.profileImg}
-            source={require("/assets/profile_img1.png")}
+            source={require("../../../assets/profile_img1.png")}
           />
         )}
         <Text>Change Profile Picture</Text>

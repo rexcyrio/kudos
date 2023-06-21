@@ -6,30 +6,39 @@ import {
 } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
   Button,
-  StyleSheet,
   FlatList,
   Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { db } from "../../firebase";
+import { Person } from "../utilities/types";
+import { images } from "../components/Images";
 
-function SearchPage(): JSX.Element {
+function SearchPage({ navigation }): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState<DocumentData[]>([]);
-  const [people, setPeople] = useState<DocumentData[]>([]);
+  const [searchResults, setSearchResults] = useState<Person[]>([]);
+  const [people, setPeople] = useState<Person[]>([]);
 
   const handleSearch = useCallback(() => {
     // Perform the search logic here
 
-    const filteredResults = people.filter((item: DocumentData) =>
+    if (searchTerm === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    const filteredResults = people.filter((item: Person) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     setSearchResults(filteredResults);
-  }, [searchTerm]);
+  }, [searchTerm, people]);
 
   const handleSearchTermChange = (text: string) => {
     setSearchTerm(text);
@@ -44,11 +53,10 @@ function SearchPage(): JSX.Element {
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const posts = querySnapshot.docs.map((doc, index) => {
-        return doc.data();
+        return { id: doc.id, ...doc.data() } as Person;
       });
 
       setPeople(posts);
-      console.log(posts);
     });
 
     return unsubscribe;
@@ -70,15 +78,37 @@ function SearchPage(): JSX.Element {
       <FlatList
         data={searchResults}
         renderItem={({ item }) => (
-          <View style={styles.resultContainer}>
-            <View style={styles.profileCircle}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("PersonProfilePage", { id: item.id })
+            }
+          >
+            <View style={styles.resultContainer}>
+              <View style={styles.profileCircle}>
+                <Image
+                  source={{ uri: item.profilePicture }}
+                  style={styles.profileImage}
+                />
+              </View>
+              <View style={styles.resultTextContainer}>
+                <Text style={styles.resultItem}>{item.name}</Text>
+                <Text style={styles.subtext}>{item.points} points</Text>
+                <View style={styles.badgesContainer}>
+                  {item.badges.map((badge, index) => (
+                    <Image
+                      key={index}
+                      source={images[badge]["uri"] as ImageSourcePropType}
+                      style={styles.badgeImage}
+                    />
+                  ))}
+                </View>
+              </View>
               <Image
-                source={{ uri: item.profilePicture }}
-                style={styles.profileImage}
+                source={require("../../assets/avatar.png")}
+                style={styles.avatar}
               />
             </View>
-            <Text style={styles.resultItem}>{item.name}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -131,8 +161,29 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
   },
+  resultTextContainer: {
+    flex: 1,
+  },
   resultItem: {
     fontSize: 16,
+  },
+  subtext: {
+    fontSize: 14,
+    color: "#666666",
+    marginBottom: 4,
+  },
+  badgesContainer: {
+    flexDirection: "row",
+    marginTop: 4,
+  },
+  badgeImage: {
+    width: 20, // Adjust the width and height according to your badge image size
+    height: 20,
+    marginRight: 8,
+  },
+  avatar: {
+    width: 48,
+    height: 48,
   },
 });
 
