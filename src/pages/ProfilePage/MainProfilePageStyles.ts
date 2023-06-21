@@ -6,9 +6,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
   },
   leftContent: {
-    flex: 1,
-    justifyContent: "center",
-    margin: 50,
+    padding: 20,
   },
   Points: {
     margin: 16,
@@ -64,19 +62,14 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
   },
   avatarContainer: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: "black",
     backgroundColor: "white",
   },
   medalContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
     flexDirection: "row",
-    alignItems: "center",
+    marginTop: 10,
   },
   medalIcon: {
     width: 30,
@@ -84,22 +77,18 @@ export const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   avatarImage: {
-    width: "80%",
-    height: "80%",
+    width: 200,
+    height: 200,
   },
   chooseAvatarContainer: {
-    backgroundColor: "#e9e9e9",
+    width: "100%",
     padding: 10,
-    marginTop: 0,
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    alignItems: "center",
   },
   chooseAvatarText: {
     textAlign: "center",
     fontSize: 22,
-    fontWeight: "500",
+    padding: 5,
+    borderRadius: 10,
+    backgroundColor: "#FFAFED",
   },
 });
