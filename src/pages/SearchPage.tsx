@@ -97,7 +97,7 @@ function SearchPage({ navigation }): JSX.Element {
                   {item.badges.map((badge, index) => (
                     <Image
                       key={index}
-                      source={images[badge]["uri"] as ImageSourcePropType}
+                      source={images[badge]}
                       style={styles.badgeImage}
                     />
                   ))}

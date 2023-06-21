@@ -1,5 +1,5 @@
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import React, { useCallback, useContext, useState } from "react";
 import {
   FlatList,
   Image,
@@ -11,37 +11,13 @@ import {
   View,
 } from "react-native";
 import { Modal, Portal, RadioButton } from "react-native-paper";
-import { AppStateContext } from "../../../App";
 import { db } from "../../../firebase";
-import { Person } from "../../utilities/types";
 import { styles } from "./MainProfilePageStyles";
+import { AppStateContext } from "../../../context";
 
-const CURRENT_USER_ID = "0yBSbH8Vt0Ozi3lDCaraDzAR6nv2";
-
-function MainProfilePage(): JSX.Element {
+function MainProfilePage({ navigation }): JSX.Element {
   const currentPerson = useContext(AppStateContext);
-  const [person, setPerson] = useState(currentPerson);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  // FIXME: updateDoc
-  const [radioButtonValue, setRadioButtonValue] = useState(
-    person?.avatar ?? "blank"
-  );
-
-  useEffect(() => {
-    const documentRef = doc(db, "users", CURRENT_USER_ID);
-
-    const unsubscribe = onSnapshot(documentRef, (document) => {
-      const person = {
-        id: document.id,
-        ...document.data(),
-      } as Person;
-
-      setPerson(person);
-    });
-
-    return unsubscribe;
-  }, []);
 
   const handleModalOpen = useCallback(() => {
     setIsModalVisible(true);
@@ -53,14 +29,13 @@ function MainProfilePage(): JSX.Element {
 
   const handleSelectNewRadioButton = useCallback(
     async (newRadioButtonValue: string) => {
-      setRadioButtonValue(newRadioButtonValue);
       setIsModalVisible(false);
 
-      await updateDoc(doc(db, "users", CURRENT_USER_ID), {
-        avatar: radioButtonValue,
+      await updateDoc(doc(db, "users", currentPerson.id), {
+        avatar: newRadioButtonValue,
       });
     },
-    [radioButtonValue]
+    [currentPerson.id]
   );
 
   return (
@@ -105,7 +80,7 @@ function MainProfilePage(): JSX.Element {
           </View>
           <Image
             style={styles.avatarImage}
-            source={mappingAvatarNameToImageSource[radioButtonValue]}
+            source={mappingAvatarNameToImageSource[currentPerson.avatar]}
           />
 
           <TouchableOpacity
@@ -128,7 +103,7 @@ function MainProfilePage(): JSX.Element {
         >
           <RadioButton.Group
             onValueChange={handleSelectNewRadioButton}
-            value={radioButtonValue}
+            value={currentPerson.avatar}
           >
             <FlatList
               data={Object.keys(mappingAvatarNameToImageSource)}
