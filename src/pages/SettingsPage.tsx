@@ -10,8 +10,9 @@ import {
   Switch,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+
 import { AppStateContext } from "../../App";
-  
+
 const SECTIONS = [
   {
     header: "Preferences",
@@ -25,11 +26,10 @@ const SECTIONS = [
         label: "Dark mode",
         type: "toggle",
       },
-<<<<<<< HEAD
-=======
+
       { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
       { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
->>>>>>> 265de0d5b5d8201e6e7cc15292ba3d1082839aa4
+
       {
         id: "enableSound",
         icon: "speaker",
@@ -80,13 +80,10 @@ function SettingsPage() {
               source={require("../../assets/profile_img1.png")}
             />
           </View>
-<<<<<<< HEAD
-          <Text style={styles.profileName}>Jethro Sim</Text>
+
+          <Text style={styles.profileName}>{currentPerson.name}</Text>
           <Text style={styles.profilePoints}>Points: {currentPerson?.points}</Text>
-=======
-          <Text style={styles.profileName}>{person.name}</Text>
-          <Text style={styles.profilePoints}>{person.points}</Text>
->>>>>>> 265de0d5b5d8201e6e7cc15292ba3d1082839aa4
+
         </View>
         {SECTIONS.map(({ header, items }) => (
           <View style={styles.section} key={header}>

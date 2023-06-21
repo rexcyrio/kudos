@@ -26,8 +26,8 @@ function LoginPage(props: any) {
     return () => unsubscribe();
   }, []);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@test.com");
+  const [password, setPassword] = useState("password");
 
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
