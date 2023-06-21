@@ -15,6 +15,7 @@ import ProfilePages from "./src/pages/ProfilePage/ProfilePages";
 import SearchPageWrapper from "./src/pages/SearchPageWrapper";
 import SettingsPage from "./src/pages/SettingsPage";
 import { Person, RootStackParamList } from "./src/utilities/types";
+import SignupPage from "./src/pages/SignupPage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -39,11 +40,13 @@ function App() {
   const [person, setPerson] = useState<Person>(dummyPerson);
   const [user, setUser] = useState<User | null>(null);
   const [uid, setUid] = useState<string>("");
+  console.log(user);
 
   useEffect(() => {
     if (uid === "") {
       return;
     }
+    console.log("Retrieving user with id:", uid);
     const documentRef = doc(db, "users", uid);
     const unsubscribe = onSnapshot(documentRef, (doc) => {
       const person = {
@@ -51,6 +54,7 @@ function App() {
         ...doc.data(),
       } as Person;
       setPerson(person);
+      console.log(person);
     });
     return unsubscribe;
   }, [uid]);
@@ -63,6 +67,9 @@ function App() {
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
+
+  console.log(person);
+  console.log(person.name == "");
 
   return (
     <AppStateContext.Provider value={person}>
