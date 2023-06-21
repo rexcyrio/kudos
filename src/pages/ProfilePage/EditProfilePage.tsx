@@ -109,7 +109,7 @@ const EditProfilePage = () => {
             ) : (
               <Image
                 style={styles.profileImg}
-                source={require("../../../assets/profile_img1.png")}
+                source={{ uri: currentPerson.profilePicture }}
               />
             )}
           </View>
