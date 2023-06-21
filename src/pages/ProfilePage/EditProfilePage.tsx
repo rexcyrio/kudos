@@ -1,11 +1,25 @@
-import React, { useCallback, useEffect, useRef, useState, useContext } from "react";
-import { TextInput } from "react-native-paper";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+} from "react";
+import {
+  HelperText,
+  Modal,
+  Portal,
+  Snackbar,
+  TextInput,
+} from "react-native-paper";
+
 import {
   Image,
   View,
   Text,
   TouchableOpacity,
   Button,
+  ScrollView,
 } from "react-native";
 import { launchImageLibrary, MediaType } from "react-native-image-picker";
 import { Feather } from "@expo/vector-icons";
@@ -13,24 +27,21 @@ import { styles } from "./EditProfilePageStyles";
 
 import { db } from "../../../firebase";
 import { Person, PersonProfilePageProps } from "../../utilities/types";
-import { AppStateContext } from "../../../App";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { AppStateContext } from "../../../context";
 
-
-  const EditProfilePage = () => {
+const EditProfilePage = () => {
   const [profilePic, setProfilePic] = useState(null);
 
   const currentPerson = useContext(AppStateContext);
   const [person, setPerson] = useState(currentPerson);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [helperText, setHelperText] = useState("");
 
-  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
-  const [transactionErrorMessage, setTransactionErrorMessage] = useState("");
 
   const ref = useRef<React.ReactElement>(null);
-
 
   const handleProfilePicChange = () => {
     const options = {
@@ -56,6 +67,7 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
   };
 
   const handleSaveChanges = async () => {
+    setIsModalVisible(false);
     const userRef = doc(db, "users", currentPerson.id);
 
     // Set the "capital" field of the city 'DC'
@@ -65,24 +77,77 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
     });
   };
 
+  const handleModalOpen = useCallback(() => {
+    setIsModalVisible(true);
+    setUserInput("");
+    setHelperText("");
+    setIsSnackbarVisible(false);
+  }, []);
+
+  const handleModalClose = useCallback(() => {
+    setIsModalVisible(false);
+  }, []);
+
+  const handleSnackbarOpen = useCallback(() => {
+    setIsSnackbarVisible(true);
+  }, []);
+
+  const handleSnackbarClose = useCallback(() => {
+    setIsSnackbarVisible(false);
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={handleProfilePicChange}>
-        <View style={styles.profileImgContainer}>
-          <View style={styles.profileAction}>
-            <Feather name="edit-3" size={15} color="#fff" />
+    <ScrollView>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={handleProfilePicChange}>
+          <View style={styles.profileImgContainer}>
+            <View style={styles.profileAction}>
+              <Feather name="edit-3" size={15} color="#fff" />
+            </View>
+            {profilePic ? (
+              <Image style={styles.profileImg} source={{ uri: profilePic }} />
+            ) : (
+              <Image
+                style={styles.profileImg}
+                source={require("../../../assets/profile_img1.png")}
+              />
+            )}
           </View>
-          {profilePic ? (
-            <Image style={styles.profileImg} source={{ uri: profilePic }} />
-          ) : (
-            <Image
-              style={styles.profileImg}
-              source={require("../../../assets/profile_img1.png")}
-            />
-          )}
+        </TouchableOpacity>
+
+        <Text style={styles.prompt}>
+          Edit name <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
+        </Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            inputMode="text"
+            autoFocus={true}
+            placeholder="Name"
+            value={person?.name}
+            onChangeText={(name) => setPerson({ ...person, name: name })}
+            style={styles.textInput}
+          />
         </View>
+        <Text style={styles.prompt}>
+          Edit job description{" "}
+          <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
+        </Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            inputMode="text"
+            autoFocus={true}
+            placeholder="Job Description"
+            value={person?.job}
+            onChangeText={(job) => setPerson({ ...person, job: job })}
+            style={styles.textInput}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Save Changes" onPress={handleSaveChanges} />
+        </View>
+
       </TouchableOpacity>
-      
+
       <Text style={styles.prompt}>
         Edit name <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
       </Text>
@@ -111,9 +176,37 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Save Changes" onPress={handleSaveChanges} />
+        <Button title="Save Changes" onPress={handleModalOpen} />
       </View>
+      <Portal>
+        <Modal
+          visible={isModalVisible}
+          onDismiss={handleModalClose}
+          contentContainerStyle={{
+            backgroundColor: "white",
+            padding: 20,
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <Text style={{ marginBottom: 10 }}>
+            Are you sure you want to edit your profile:{" "}
+          </Text>
+          <Button
+            title="No"
+            onPress={handleModalClose}
+            color="red"
+          />
+          <Button
+            title="Yes"
+            onPress={handleSaveChanges}
+            color="green"
+          />
+        </Modal>
+      </Portal>
     </View>
+    </ScrollView>
+
   );
 };
 

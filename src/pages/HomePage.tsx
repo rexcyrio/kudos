@@ -2,33 +2,16 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import disc from "@jsamr/counter-style/presets/disc";
 import MarkedList from "@jsamr/react-native-li";
 import { collection, onSnapshot, query } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Card } from "react-native-paper";
-import { auth, db } from "../../firebase";
-import ViewLeaderboardButton from "../components/ViewLeaderboardButton";
 import { signOut } from "firebase/auth";
+import { Card } from "react-native-paper";
+import { AppStateContext } from "../../context";
+import { auth } from "../../firebase";
+import ViewLeaderboardButton from "../components/ViewLeaderboardButton";
 
-function HomePage({ navigation }): JSX.Element {
-  const [name, setName] = useState(null);
-  const [pic, setPic] = useState(null);
-  const [points, setPoints] = useState(null);
-
-  useEffect(() => {
-    const q = query(collection(db, "users"));
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const data = querySnapshot.docs.map((doc, index) => {
-        return doc.data();
-      });
-
-      setName(data[0].name);
-      setPic(data[0].pic);
-      setPoints(data[0].points);
-    });
-
-    return unsubscribe;
-  }, []);
+function HomePage({ navigation, route }): JSX.Element {
+  const person = useContext(AppStateContext);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -72,7 +55,7 @@ function HomePage({ navigation }): JSX.Element {
             </View>
 
             <View>
-              <Text>{points}</Text>
+              <Text>{person.points}</Text>
             </View>
           </Card.Content>
         </Card>

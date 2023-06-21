@@ -15,6 +15,8 @@ import ProfilePages from "./src/pages/ProfilePage/ProfilePages";
 import SearchPageWrapper from "./src/pages/SearchPageWrapper";
 import SettingsPage from "./src/pages/SettingsPage";
 import { Person, RootStackParamList } from "./src/utilities/types";
+import { AppStateContext, dummyPerson } from "./context";
+import SignupPage from "./src/pages/SignupPage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -22,28 +24,17 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 const ORIGINAL_TAB_BAR_HEIGHT = 48.7;
 const MARGIN_BOTTOM = 5;
 
-const dummyPerson: Person = {
-  id: "-100",
-  name: "",
-  job: "",
-  location: "",
-  points: -100,
-  profilePicture: "",
-  badges: [],
-  avatar: "",
-};
-
-export const AppStateContext = React.createContext(dummyPerson);
-
 function App() {
   const [person, setPerson] = useState<Person>(dummyPerson);
   const [user, setUser] = useState<User | null>(null);
   const [uid, setUid] = useState<string>("");
+  console.log(user);
 
   useEffect(() => {
     if (uid === "") {
       return;
     }
+    console.log("Retrieving user with id:", uid);
     const documentRef = doc(db, "users", uid);
     const unsubscribe = onSnapshot(documentRef, (doc) => {
       const person = {
@@ -51,6 +42,7 @@ function App() {
         ...doc.data(),
       } as Person;
       setPerson(person);
+      console.log(person);
     });
     return unsubscribe;
   }, [uid]);
@@ -63,6 +55,9 @@ function App() {
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
+
+  console.log(person);
+  console.log(person.name == "");
 
   return (
     <AppStateContext.Provider value={person}>
@@ -131,7 +126,11 @@ function App() {
                 component={SearchPageWrapper}
                 options={{ headerShown: false }}
               />
-              <Tab.Screen name="Profile" component={ProfilePages} />
+              <Tab.Screen
+                name="Profile"
+                component={ProfilePages}
+                options={{ headerShown: false }}
+              />
               <Tab.Screen name="Notifications" component={NotificationsPage} />
               <Tab.Screen name="Settings" component={SettingsPage} />
             </Tab.Navigator>

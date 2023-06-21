@@ -10,6 +10,7 @@ import {
   Switch,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+
 import { AppStateContext } from "../../App";
 
 const SECTIONS = [
@@ -19,19 +20,16 @@ const SECTIONS = [
     items: [
       { icon: "globe", color: "#fe9400", label: "Language", type: "link" },
       {
+        id: "darkMode",
+        icon: "moon",
+        color: "#007afe",
+        label: "Dark mode",
+        type: "toggle",
+      },
 
-        id: 'darkMode',
-        icon: 'moon',
-        color: '#007afe',
-        label: 'Dark mode',
-        type: 'toggle',
-      },
-      { icon: 'navigation', 
-        color: '#32c759', 
-        label: 'Location', 
-        type: 'link' 
-      },
       { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
+      { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
+
       {
         id: "enableSound",
         icon: "speaker",
@@ -64,7 +62,7 @@ const SECTIONS = [
 ];
 
 function SettingsPage() {
-  const person = useContext(AppStateContext);
+  const currentPerson = useContext(AppStateContext);
   const [form, setForm] = React.useState({
     darkMode: true,
     wifi: false,
@@ -76,12 +74,16 @@ function SettingsPage() {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.profile}>
-            <View style={styles.profileAvatarWrapper}>
-              
-              <Image style={styles.profileAvatar} source={require("../../assets/profile_img1.png")} />
-            </View>
-          <Text style={styles.profileName}>Jethro Sim</Text>
-          <Text style={styles.profilePoints}>Points: 1000</Text>
+          <View style={styles.profileAvatarWrapper}>
+            <Image
+              style={styles.profileAvatar}
+              source={require("../../assets/profile_img1.png")}
+            />
+          </View>
+
+          <Text style={styles.profileName}>{currentPerson.name}</Text>
+          <Text style={styles.profilePoints}>Points: {currentPerson?.points}</Text>
+
         </View>
         {SECTIONS.map(({ header, items }) => (
           <View style={styles.section} key={header}>
