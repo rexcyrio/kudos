@@ -56,7 +56,7 @@ function LeaderboardPage({
   return (
     <View style={{ height: "100%" }}>
       <View style={{ flexDirection: "row", width: "100%" }}>
-        <View style={{ backgroundColor: "lightgreen", width: "50%" }}>
+        <View style={{  width: "50%" }}>
           <Text>Job:</Text>
 
           <Picker
@@ -69,7 +69,7 @@ function LeaderboardPage({
           </Picker>
         </View>
 
-        <View style={{ backgroundColor: "orange", width: "50%" }}>
+        <View style={{width: "50%" }}>
           <Text>Location:</Text>
           <Picker
             selectedValue={filterByLocation}
