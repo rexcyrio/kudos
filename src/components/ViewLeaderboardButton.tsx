@@ -13,8 +13,11 @@ function ViewLeaderboardButton({ navigation }: SearchPageProps): JSX.Element {
         alignItems: "center",
         justifyContent: "space-between",
 
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "gray",
+        borderRadius: 5,
         paddingVertical: 5,
-        backgroundColor: "pink",
       }}
     >
       <Text

@@ -13,7 +13,7 @@ function ProfilePages() {
     const Stack = createNativeStackNavigator();
     return (
         <Stack.Navigator initialRouteName="MainProfilePage">
-            <Stack.Screen 
+            <Stack.Screen
                 name="MainProfilePage"
                 children={(props) => (
                     <MainProfilePage {...props} name={name} jobTitle={jobTitle} />
