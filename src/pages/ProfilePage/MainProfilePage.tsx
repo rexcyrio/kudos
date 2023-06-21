@@ -43,7 +43,7 @@ function MainProfilePage({ navigation }): JSX.Element {
       <View style={styles.profileFrame}>
         <Image
           style={styles.profileImg}
-          source={require("../../../assets/profile_img1.png")}
+          source={{ uri: currentPerson.profilePicture }}
         />
         <View style={styles.nameContainer}>
           <Text style={styles.name}>{currentPerson?.name}</Text>
