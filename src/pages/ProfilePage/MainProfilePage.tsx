@@ -1,62 +1,172 @@
-import React from "react";
-import { StyleSheet, View, Image, Text, TouchableHighlight } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { styles } from './MainProfilePageStyles';
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  FlatList,
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Modal, Portal, RadioButton } from "react-native-paper";
+import { db } from "../../../firebase";
+import { Person } from "../../utilities/types";
+import { styles } from "./MainProfilePageStyles";
+
+const CURRENT_USER_ID = "0yBSbH8Vt0Ozi3lDCaraDzAR6nv2";
 
 function MainProfilePage({ name, jobTitle, navigation }): JSX.Element {
+  const [person, setPerson] = useState<Person | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const Stack = createNativeStackNavigator();
-  
+
+  // FIXME: updateDoc 
+  const [radioButtonValue, setRadioButtonValue] = useState(
+    person?.avatar ?? "blank"
+  );
+
+  useEffect(() => {
+    const documentRef = doc(db, "users", CURRENT_USER_ID);
+
+    const unsubscribe = onSnapshot(documentRef, (document) => {
+      const person = {
+        id: document.id,
+        ...document.data(),
+      } as Person;
+
+      setPerson(person);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const handleModalOpen = useCallback(() => {
+    setIsModalVisible(true);
+  }, []);
+
+  const handleModalClose = useCallback(() => {
+    setIsModalVisible(false);
+  }, []);
+
+  const handleSelectNewRadioButton = useCallback(
+    async (newRadioButtonValue: string) => {
+      setRadioButtonValue(newRadioButtonValue);
+      setIsModalVisible(false);
+
+      await updateDoc(doc(db, "users", CURRENT_USER_ID), {
+        avatar: radioButtonValue,
+      });
+    },
+    [radioButtonValue]
+  );
+
   return (
     <View style={styles.container}>
-        <View style={styles.profileFrame}>
-          <Image
-            style={styles.profileImg}
-            source={require("../../../assets/profile_img1.png")}
-          />
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.title}>{jobTitle}</Text>
-            <Text style={styles.Points}>{`1000 points`}</Text>
-          </View>
-          <TouchableHighlight onPress={() => {
+      <View style={styles.profileFrame}>
+        <Image
+          style={styles.profileImg}
+          source={require("../../../assets/profile_img1.png")}
+        />
+        <View style={styles.nameContainer}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.title}>{jobTitle}</Text>
+          <Text style={styles.Points}>{`1000 points`}</Text>
+        </View>
+        <TouchableHighlight
+          onPress={() => {
             navigation.navigate("EditProfilePage");
             console.log("Edit Profile Page");
-          }}>
-            <Image
-              style={styles.editProfileImg}
-              source={require('../../../assets/pencil.png')}
-            />
-          </TouchableHighlight>
-        </View>
+          }}
+        >
+          <Image
+            style={styles.editProfileImg}
+            source={require("../../../assets/pencil.png")}
+          />
+        </TouchableHighlight>
+      </View>
       <View style={styles.leftContent}>
         <View style={styles.avatarContainer}>
-        <View style={styles.medalContainer}>
-          <Image
-            style={styles.medalIcon}
-            source={require("../../../assets/silver_medal.png")}
-          />
-          <Image
-            style={styles.medalIcon}
-            source={require("../../../assets/gold_medal.png")}
-          />
-          <Image
-            style={styles.medalIcon}
-            source={require("../../../assets/platinum_medal.png")}
-          />
+          <View style={styles.medalContainer}>
+            <Image
+              style={styles.medalIcon}
+              source={require("../../../assets/silver_medal.png")}
+            />
+            <Image
+              style={styles.medalIcon}
+              source={require("../../../assets/gold_medal.png")}
+            />
+            <Image
+              style={styles.medalIcon}
+              source={require("../../../assets/platinum_medal.png")}
+            />
           </View>
           <Image
             style={styles.avatarImage}
-            source={require("../../../assets/avatar.png")}
+            source={mappingAvatarNameToImageSource[radioButtonValue]}
           />
-          <View style={styles.chooseAvatarContainer}>
+
+          <TouchableOpacity
+            style={styles.chooseAvatarContainer}
+            onPress={handleModalOpen}
+          >
             <Text style={styles.chooseAvatarText}>Choose Avatar</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
+
+      <Portal>
+        <Modal
+          visible={isModalVisible}
+          onDismiss={handleModalClose}
+          contentContainerStyle={{
+            backgroundColor: "white",
+            padding: 20,
+          }}
+        >
+          <RadioButton.Group
+            onValueChange={handleSelectNewRadioButton}
+            value={radioButtonValue}
+          >
+            <FlatList
+              data={Object.keys(mappingAvatarNameToImageSource)}
+              renderItem={({ item: avatarName }) => (
+                <TouchableOpacity
+                  onPress={() => handleSelectNewRadioButton(avatarName)}
+                  style={mainProfilePageStyles.radioButtonRowWrapper}
+                >
+                  <RadioButton value={avatarName} />
+                  <Image
+                    style={mainProfilePageStyles.image}
+                    source={mappingAvatarNameToImageSource[avatarName]}
+                  />
+                </TouchableOpacity>
+              )}
+            />
+          </RadioButton.Group>
+        </Modal>
+      </Portal>
     </View>
   );
 }
+
+const mainProfilePageStyles = StyleSheet.create({
+  image: {
+    height: 125,
+    width: 125,
+  },
+  radioButtonRowWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});
+
+const mappingAvatarNameToImageSource: { [key: string]: ImageSourcePropType } = {
+  blank: require("../../../assets/avatar_redo_1.png"),
+  pink: require("../../../assets/avatar_redo_2.png"),
+  dog: require("../../../assets/avatar_redo_3.png"),
+  aang: require("../../../assets/avatar_redo_4.png"),
+};
 
 export default MainProfilePage;

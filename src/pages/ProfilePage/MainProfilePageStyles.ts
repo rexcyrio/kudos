@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -69,6 +69,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 2,
     borderColor: "black",
+    backgroundColor: "white",
   },
   medalContainer: {
     position: "absolute",
@@ -85,7 +86,6 @@ export const styles = StyleSheet.create({
   avatarImage: {
     width: "80%",
     height: "80%",
-    borderRadius: 60,
   },
   chooseAvatarContainer: {
     backgroundColor: "#e9e9e9",
