@@ -8,7 +8,7 @@ import {
   User,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Button, StyleSheet, TextInput, View, TouchableOpacity, ImageBackground } from "react-native";
 
 function LoginPage(props: any) {
   const { setUid } = props;
@@ -69,7 +69,10 @@ function LoginPage(props: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Log in</Text>
+    <View style={styles.header}>
+      <Text style={styles.heading}>Kudos</Text>
+    </View>
+    <View style={styles.card}>
       <TextInput
         placeholder="Email"
         value={email}
@@ -83,41 +86,97 @@ function LoginPage(props: any) {
         secureTextEntry
         style={styles.input}
       />
-      <View style={styles.buttonContainer}>
-        <Button title="Sign Up" onPress={handleSignUp} color="#007AFF" />
-        <Button title="Sign In" onPress={handleSignIn} color="#007AFF" />
-        <Button title="Sign Out" onPress={handleSignOut} color="#FF3B30" />
-      </View>
+
+      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.createAccountButton} onPress={handleSignUp}>
+        <Text style={styles.createAccountButtonText}>Create Account</Text>
+      </TouchableOpacity>
     </View>
+  </View>
+
+    
   );
 }
 
 const styles = StyleSheet.create({
-  heading: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 16,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  header: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 50,
+    paddingBottom: 20,
+    width: '100%',
+    height: 200,
+    backgroundColor: '#FFAFED',
+  },
+  heading: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
+  },
+  forgotPasswordButton: {
+    width:'100%',
+    textAlign:'flex-end',
+  },
+  forgotPasswordButtonText: {
+    color: '#20B2AA',
+    fontSize: 12,
+    fontWeight: 'bold',
+    textAlign:'right'
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
+    padding: 20,
+    marginTop: 40,
+    width: '90%',
+    alignItems: 'center',
   },
   input: {
-    width: "100%",
-    height: 40,
-    borderColor: "#CCC",
     borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginVertical: 10,
+    width: '100%',
   },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
+  button: {
+    backgroundColor: '#FFAFED',
+    borderRadius: 5,
+    padding: 10,
     marginTop: 10,
+    width: '100%',
+    alignItems: 'center',
   },
-});
+  buttonText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+  },
+  createAccountButton: {
+    marginTop: 20,
+  },
+  createAccountButtonText: {
+    color: '#FFAFED',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+}
+);
 
 export default React.memo(LoginPage);
