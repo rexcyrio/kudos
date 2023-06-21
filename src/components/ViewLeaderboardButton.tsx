@@ -21,6 +21,7 @@ function ViewLeaderboardButton({ navigation }: SearchPageProps): JSX.Element {
         style={{
           fontSize: 16,
           marginLeft: 10,
+          fontWeight: 'bold',
         }}
       >
         View Leaderboard
