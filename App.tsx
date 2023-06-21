@@ -34,14 +34,17 @@ const dummyPerson: Person = {
 };
 
 export const AppStateContext = React.createContext(dummyPerson);
-const userId = "IA3mQj16E0EfLJYRRl1z";
 
 function App() {
   const [person, setPerson] = useState<Person>(dummyPerson);
   const [user, setUser] = useState<User | null>(null);
+  const [uid, setUid] = useState<string>("");
 
   useEffect(() => {
-    const documentRef = doc(db, "users", userId);
+    if (uid === "") {
+      return;
+    }
+    const documentRef = doc(db, "users", uid);
     const unsubscribe = onSnapshot(documentRef, (doc) => {
       const person = {
         id: doc.id,
@@ -50,7 +53,7 @@ function App() {
       setPerson(person);
     });
     return unsubscribe;
-  }, []);
+  }, [uid]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -134,7 +137,7 @@ function App() {
             </Tab.Navigator>
           </NavigationContainer>
         ) : (
-          <LoginPage />
+          <LoginPage setUid={setUid} />
         )}
       </PaperProvider>
     </AppStateContext.Provider>

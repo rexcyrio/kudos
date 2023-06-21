@@ -10,7 +10,8 @@ import {
 import { auth } from "../../firebase";
 import { Button, StyleSheet, TextInput, View } from "react-native";
 
-function LoginPage() {
+function LoginPage(props: any) {
+  const { setUid } = props;
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function LoginPage() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        setUid(user.uid);
         console.log("User signed up:", user.uid);
       })
       .catch((error) => {
@@ -43,6 +45,7 @@ function LoginPage() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("User signed in:", user.uid);
+        setUid(user.uid);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -55,6 +58,7 @@ function LoginPage() {
     signOut(auth)
       .then(() => {
         console.log("User signed out");
+        setUid("");
       })
       .catch((error) => {
         const errorCode = error.code;
