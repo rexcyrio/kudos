@@ -10,7 +10,7 @@ import {
   Switch,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { AppStateContext } from "../../App";
+import { AppStateContext } from "../../context";
 
 const SECTIONS = [
   {

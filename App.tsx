@@ -15,6 +15,7 @@ import ProfilePages from "./src/pages/ProfilePage/ProfilePages";
 import SearchPageWrapper from "./src/pages/SearchPageWrapper";
 import SettingsPage from "./src/pages/SettingsPage";
 import { Person, RootStackParamList } from "./src/utilities/types";
+import { AppStateContext, dummyPerson } from "./context";
 import SignupPage from "./src/pages/SignupPage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -22,19 +23,6 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 
 const ORIGINAL_TAB_BAR_HEIGHT = 48.7;
 const MARGIN_BOTTOM = 5;
-
-const dummyPerson: Person = {
-  id: "-100",
-  name: "",
-  job: "",
-  location: "",
-  points: -100,
-  profilePicture: "",
-  badges: [],
-  avatar: "",
-};
-
-export const AppStateContext = React.createContext(dummyPerson);
 
 function App() {
   const [person, setPerson] = useState<Person>(dummyPerson);
@@ -138,7 +126,11 @@ function App() {
                 component={SearchPageWrapper}
                 options={{ headerShown: false }}
               />
-              <Tab.Screen name="Profile" component={ProfilePages} />
+              <Tab.Screen
+                name="Profile"
+                component={ProfilePages}
+                options={{ headerShown: false }}
+              />
               <Tab.Screen name="Notifications" component={NotificationsPage} />
               <Tab.Screen name="Settings" component={SettingsPage} />
             </Tab.Navigator>
