@@ -30,7 +30,7 @@ import { Person, PersonProfilePageProps } from "../../utilities/types";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { AppStateContext } from "../../../context";
 
-const EditProfilePage = () => {
+function EditProfilePage({ navigation }): JSX.Element {
   const [profilePic, setProfilePic] = useState(null);
 
   const currentPerson = useContext(AppStateContext);
@@ -39,6 +39,7 @@ const EditProfilePage = () => {
   const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [helperText, setHelperText] = useState("");
+
 
 
   const ref = useRef<React.ReactElement>(null);
@@ -75,6 +76,9 @@ const EditProfilePage = () => {
       job: person.job,
       name: person.name,
     });
+
+    // Attempt to redirect to the profile page
+    navigation.navigate("MainProfilePage");
   };
 
   const handleModalOpen = useCallback(() => {
@@ -146,32 +150,35 @@ const EditProfilePage = () => {
           <Button title="Save Changes" onPress={handleModalOpen} />
         </View>
 
-      <Portal>
-        <Modal
-          visible={isModalVisible}
-          onDismiss={handleModalClose}
-          contentContainerStyle={{
-            backgroundColor: "white",
-            padding: 20,
-            flexDirection: "row",
-            justifyContent: "space-around",
-          }}
-        >
-          <Text style={{ marginBottom: 10 }}>
-            Are you sure you want to edit your profile:{" "}
-          </Text>
-          <Button
-            title="No"
-            onPress={handleModalClose}
-            color="red"
-          />
-          <Button
-            title="Yes"
-            onPress={handleSaveChanges}
-            color="green"
-          />
-        </Modal>
-      </Portal>
+        <Portal>
+          <Modal
+            visible={isModalVisible}
+            onDismiss={handleModalClose}
+            contentContainerStyle={styles.modalContentContainer}
+          >
+            <Text style={{ marginBottom: 10 }}>
+              Are you sure you want to edit your profile:{" "}
+            </Text>
+            <View style={styles.buttonGroup}>
+              <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={handleModalClose}
+              >
+                <View style={[styles.button, { backgroundColor: "red" }]}>
+                  <Text style={styles.buttonText}>No</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={handleSaveChanges}
+              >
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Yes</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+        </Portal>
     </View>
     </ScrollView>
 

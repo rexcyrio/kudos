@@ -50,7 +50,7 @@ function MainProfilePage({ navigation }): JSX.Element {
           <Text style={styles.title}>{currentPerson?.job}</Text>
           <Text style={styles.Points}>Points: {currentPerson?.points}</Text>
         </View>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate("EditProfilePage");
             console.log("Edit Profile Page");
@@ -60,7 +60,7 @@ function MainProfilePage({ navigation }): JSX.Element {
             style={styles.editProfileImg}
             source={require("../../../assets/pencil.png")}
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
       <View style={styles.leftContent}>
         <View style={styles.avatarContainer}>
