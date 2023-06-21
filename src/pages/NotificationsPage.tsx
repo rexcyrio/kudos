@@ -5,7 +5,7 @@ import { db } from "../../firebase";
 import NotificationItem from "../components/NotificationItem";
 import { Notification } from "../utilities/types";
 
-const USER_ID = "IA3mQj16E0EfLJYRRl1z";
+const USER_ID = "JSDIOVBRJJPYvFvEOAlS";
 
 function NotificationsPage(): JSX.Element {
   const [notifications, setNotifications] = useState<Notification[]>([]);

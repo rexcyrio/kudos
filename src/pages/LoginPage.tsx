@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
@@ -8,7 +8,7 @@ import {
   User,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 function LoginPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -80,9 +80,15 @@ function LoginPage() {
         style={styles.input}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Sign Up" onPress={handleSignUp} color="#007AFF" />
-        <Button title="Sign In" onPress={handleSignIn} color="#007AFF" />
-        <Button title="Sign Out" onPress={handleSignOut} color="#FF3B30" />
+        <Button onPress={handleSignUp} color="#007AFF">
+          Sign Up
+        </Button>
+        <Button onPress={handleSignIn} color="#007AFF">
+          Sign In
+        </Button>
+        <Button onPress={handleSignOut} color="#FF3B30">
+          Sign Out
+        </Button>
       </View>
     </View>
   );
