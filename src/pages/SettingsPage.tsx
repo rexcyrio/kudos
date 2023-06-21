@@ -19,11 +19,17 @@ const SECTIONS = [
     items: [
       { icon: "globe", color: "#fe9400", label: "Language", type: "link" },
       {
-        id: "darkMode",
-        icon: "moon",
-        color: "#007afe",
-        label: "Use Wi-Fi",
-        type: "toggle",
+
+        id: 'darkMode',
+        icon: 'moon',
+        color: '#007afe',
+        label: 'Dark mode',
+        type: 'toggle',
+      },
+      { icon: 'navigation', 
+        color: '#32c759', 
+        label: 'Location', 
+        type: 'link' 
       },
       { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
       {
@@ -70,17 +76,9 @@ function SettingsPage() {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.profile}>
-          <TouchableOpacity onPress={() => {}}>
             <View style={styles.profileAvatarWrapper}>
-              <Image
-                style={styles.profileAvatar}
-                source={require("../../assets/profile_img1.png")}
-              />
-              <View style={styles.profileAction}>
-                <Feather name="edit-3" size={15} color="#fff" />
-              </View>
-            </View>
-          </TouchableOpacity>
+              
+              <Image style={styles.profileAvatar} source={require("../../assets/profile_img1.png")} />
 
           <Text style={styles.profileName}>Jethro Sim</Text>
           <Text style={styles.profilePoints}>Points: 1000</Text>

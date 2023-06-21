@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useCallback, useEffect, useRef, useState, useContext } from "react";
+import { TextInput } from "react-native-paper";
 import {
   Image,
   View,
@@ -8,16 +9,29 @@ import {
   Button,
 } from "react-native";
 import { launchImageLibrary, MediaType } from "react-native-image-picker";
+import { Feather } from "@expo/vector-icons";
 import { styles } from "./EditProfilePageStyles";
-import { db } from "../../../firebase";
-import { Person } from "../../utilities/types";
+
+import { db } from "../../firebase";
+import { Person, PersonProfilePageProps } from "../utilities/types";
 import { AppStateContext } from "../../../App";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 
-const EditProfilePage = () => {
+
+  const EditProfilePage = () => {
   const [profilePic, setProfilePic] = useState(null);
+
   const currentPerson = useContext(AppStateContext);
   const [person, setPerson] = useState(currentPerson);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [helperText, setHelperText] = useState("");
+
+  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
+  const [transactionErrorMessage, setTransactionErrorMessage] = useState("");
+
+  const ref = useRef<React.ReactElement>(null);
+
 
   const handleProfilePicChange = () => {
     const options = {
@@ -53,29 +67,53 @@ const EditProfilePage = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <TouchableOpacity onPress={handleProfilePicChange}>
-        {profilePic ? (
-          <Image style={styles.profileImg} source={{ uri: profilePic }} />
-        ) : (
-          <Image
-            style={styles.profileImg}
-            source={require("../../../assets/profile_img1.png")}
-          />
-        )}
-        <Text>Change Profile Picture</Text>
+        <View style={styles.profileImgContainer}>
+          <View style={styles.profileAction}>
+            <Feather name="edit-3" size={15} color="#fff" />
+          </View>
+          {profilePic ? (
+            <Image style={styles.profileImg} source={{ uri: profilePic }} />
+          ) : (
+            <Image
+              style={styles.profileImg}
+              source={require("../../../assets/profile_img1.png")}
+            />
+          )}
+        </View>
       </TouchableOpacity>
-      <TextInput
-        placeholder="Name"
-        value={person?.name}
-        onChangeText={(name) => setPerson({ ...person, name: name })}
-      />
-      <TextInput
-        placeholder="Job Description"
-        value={person?.job}
-        onChangeText={(job) => setPerson({ ...person, job: job })}
-      />
-      <Button title="Save Changes" onPress={handleSaveChanges} />
+      
+      <Text style={styles.prompt}>
+        Edit name <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
+      </Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          inputMode="text"
+          autoFocus={true}
+          placeholder="Name"
+          value={person?.name}
+          onChangeText={(name) => setPerson({ ...person, name: name })}
+          style={styles.textInput}
+        />
+      </View>
+      <Text style={styles.prompt}>
+        Edit job description{" "}
+        <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
+      </Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          inputMode="text"
+          autoFocus={true}
+          placeholder="Job Description"
+          value={person?.job}
+          onChangeText={(job) => setPerson({ ...person, job: job })}
+          style={styles.textInput}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Save Changes" onPress={handleSaveChanges} />
+      </View>
     </View>
   );
 };
