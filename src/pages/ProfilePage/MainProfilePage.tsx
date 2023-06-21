@@ -20,7 +20,7 @@ function MainProfilePage({ navigation }): JSX.Element {
         <View style={styles.nameContainer}>
           <Text style={styles.name}>{currentPerson?.name}</Text>
           <Text style={styles.title}>{currentPerson?.job}</Text>
-          <Text style={styles.Points}>{currentPerson?.points}</Text>
+          <Text style={styles.Points}>Points: {currentPerson?.points}</Text>
         </View>
         <TouchableHighlight
           onPress={() => {

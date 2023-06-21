@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState, useContext } from "react";
-import { TextInput } from "react-native-paper";
+import {
+  HelperText,
+  Modal,
+  Portal,
+  Snackbar,
+  TextInput,
+} from "react-native-paper";
 import {
   Image,
   View,
@@ -23,11 +29,10 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
   const currentPerson = useContext(AppStateContext);
   const [person, setPerson] = useState(currentPerson);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [helperText, setHelperText] = useState("");
 
-  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
-  const [transactionErrorMessage, setTransactionErrorMessage] = useState("");
 
   const ref = useRef<React.ReactElement>(null);
 
@@ -56,6 +61,7 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
   };
 
   const handleSaveChanges = async () => {
+    setIsModalVisible(false);
     const userRef = doc(db, "users", currentPerson.id);
 
     // Set the "capital" field of the city 'DC'
@@ -64,6 +70,25 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
       name: person.name,
     });
   };
+
+  const handleModalOpen = useCallback(() => {
+    setIsModalVisible(true);
+    setUserInput("");
+    setHelperText("");
+    setIsSnackbarVisible(false);
+  }, []);
+
+  const handleModalClose = useCallback(() => {
+    setIsModalVisible(false);
+  }, []);
+
+  const handleSnackbarOpen = useCallback(() => {
+    setIsSnackbarVisible(true);
+  }, []);
+
+  const handleSnackbarClose = useCallback(() => {
+    setIsSnackbarVisible(false);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -82,7 +107,7 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
           )}
         </View>
       </TouchableOpacity>
-      
+
       <Text style={styles.prompt}>
         Edit name <Text style={{ fontWeight: "bold" }}>{person?.name}</Text>
       </Text>
@@ -111,8 +136,34 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Save Changes" onPress={handleSaveChanges} />
+        <Button title="Save Changes" onPress={handleModalOpen} />
       </View>
+      <Portal>
+        <Modal
+          visible={isModalVisible}
+          onDismiss={handleModalClose}
+          contentContainerStyle={{
+            backgroundColor: "white",
+            padding: 20,
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <Text style={{ marginBottom: 10 }}>
+            Are you sure you want to edit your profile:{" "}
+          </Text>
+          <Button
+            title="No"
+            onPress={handleModalClose}
+            color="red"
+          />
+          <Button
+            title="Yes"
+            onPress={handleSaveChanges}
+            color="green"
+          />
+        </Modal>
+      </Portal>
     </View>
   );
 };

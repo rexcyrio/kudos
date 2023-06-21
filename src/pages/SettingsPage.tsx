@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { AppStateContext } from "../../App";
-
+  
 const SECTIONS = [
   {
     header: "Preferences",
@@ -31,7 +31,6 @@ const SECTIONS = [
         label: 'Location', 
         type: 'link' 
       },
-      { icon: "navigation", color: "#32c759", label: "Location", type: "link" },
       {
         id: "enableSound",
         icon: "speaker",
@@ -64,7 +63,7 @@ const SECTIONS = [
 ];
 
 function SettingsPage() {
-  const person = useContext(AppStateContext);
+  const currentPerson = useContext(AppStateContext);
   const [form, setForm] = React.useState({
     darkMode: true,
     wifi: false,
@@ -76,12 +75,14 @@ function SettingsPage() {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.profile}>
-            <View style={styles.profileAvatarWrapper}>
-              
-              <Image style={styles.profileAvatar} source={require("../../assets/profile_img1.png")} />
-            </View>
+          <View style={styles.profileAvatarWrapper}>
+            <Image
+              style={styles.profileAvatar}
+              source={require("../../assets/profile_img1.png")}
+            />
+          </View>
           <Text style={styles.profileName}>Jethro Sim</Text>
-          <Text style={styles.profilePoints}>Points: 1000</Text>
+          <Text style={styles.profilePoints}>Points: {currentPerson?.points}</Text>
         </View>
         {SECTIONS.map(({ header, items }) => (
           <View style={styles.section} key={header}>
