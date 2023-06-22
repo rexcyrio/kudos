@@ -10,7 +10,7 @@ import {
   updateDoc
 } from "firebase/firestore";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Keyboard, Text, TouchableOpacity, View, StyleSheet, Image } from "react-native";
+import { Button, Keyboard, Text, TouchableOpacity, View, StyleSheet, Image, ScrollView } from "react-native";
 import {
   HelperText,
   Modal,
@@ -159,6 +159,7 @@ function PersonProfilePage({
   }, []);
 
   return (
+    <ScrollView style={{ backgroundColor: '#FFDCF8'}}>
     <View style={styles.container}>
       {person && (
         <View style={styles.headerContent}>
@@ -239,6 +240,8 @@ function PersonProfilePage({
         </Modal>
       </Portal>
     </View>
+    </ScrollView>
+
   );
 }
 

@@ -43,7 +43,7 @@ function MainProfilePage({ navigation }): JSX.Element {
       <View style={styles.profileFrame}>
         <Image
           style={styles.profileImg}
-          source={require("../../../assets/profile_img1.png")}
+          source={{ uri: currentPerson.profilePicture }}
         />
         <View style={styles.nameContainer}>
           <Text style={styles.name}>{currentPerson?.name}</Text>
@@ -138,7 +138,7 @@ const mainProfilePageStyles = StyleSheet.create({
   },
 });
 
-const mappingAvatarNameToImageSource: { [key: string]: ImageSourcePropType } = {
+export const mappingAvatarNameToImageSource: { [key: string]: ImageSourcePropType } = {
   blank: require("../../../assets/avatar_redo_1.png"),
   pink: require("../../../assets/avatar_redo_2.png"),
   dog: require("../../../assets/avatar_redo_3.png"),

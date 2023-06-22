@@ -19,6 +19,7 @@ import {
 import { db } from "../../firebase";
 import { Person } from "../utilities/types";
 import { images } from "../components/Images";
+import { mappingAvatarNameToImageSource } from "./ProfilePage/MainProfilePage";
 
 function SearchPage({ navigation }): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
@@ -104,7 +105,7 @@ function SearchPage({ navigation }): JSX.Element {
                 </View>
               </View>
               <Image
-                source={require("../../assets/avatar.png")}
+                source={mappingAvatarNameToImageSource[item.avatar]}
                 style={styles.avatar}
               />
             </View>
@@ -120,6 +121,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingTop: 32,
+    backgroundColor: "white",
   },
   heading: {
     fontSize: 24,

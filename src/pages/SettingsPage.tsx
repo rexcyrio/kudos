@@ -76,13 +76,14 @@ function SettingsPage() {
           <View style={styles.profileAvatarWrapper}>
             <Image
               style={styles.profileAvatar}
-              source={require("../../assets/profile_img1.png")}
+              source={{ uri: currentPerson.profilePicture }}
             />
           </View>
 
           <Text style={styles.profileName}>{currentPerson.name}</Text>
-          <Text style={styles.profilePoints}>Points: {currentPerson?.points}</Text>
-
+          <Text style={styles.profilePoints}>
+            Points: {currentPerson?.points}
+          </Text>
         </View>
         {SECTIONS.map(({ header, items }) => (
           <View style={styles.section} key={header}>

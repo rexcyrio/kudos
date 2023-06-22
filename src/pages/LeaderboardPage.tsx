@@ -9,7 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, View, StyleSheet } from "react-native";
 import { db } from "../../firebase";
 import LeaderboardPersonComponent from "../components/LeaderboardPersonComponent";
 import { LeaderboardPageProps, Person } from "../utilities/types";
@@ -55,13 +55,14 @@ function LeaderboardPage({
 
   return (
     <View style={{ height: "100%" }}>
-      <View style={{ flexDirection: "row", width: "100%" }}>
-        <View style={{ backgroundColor: "lightgreen", width: "50%" }}>
-          <Text>Job:</Text>
+      <View style={styles.filterContainer}>
+        <View style={styles.jobFilter}>
+          <Text style={styles.jobFilterContent}>Job</Text>
 
           <Picker
             selectedValue={filterByJob}
             onValueChange={(itemValue, itemIndex) => setFilterByJob(itemValue)}
+            style={styles.filterPicker}
           >
             <Picker.Item label="All" value="" />
             <Picker.Item label="Software Engineer" value="Software Engineer" />
@@ -69,13 +70,14 @@ function LeaderboardPage({
           </Picker>
         </View>
 
-        <View style={{ backgroundColor: "orange", width: "50%" }}>
-          <Text>Location:</Text>
+        <View style={styles.locationFilter}>
+          <Text style={styles.locationFilterContent}>Location</Text>
           <Picker
             selectedValue={filterByLocation}
             onValueChange={(itemValue, itemIndex) =>
               setFilterByLocation(itemValue)
             }
+            style={styles.filterPicker}
           >
             <Picker.Item label="All" value="" />
             <Picker.Item label="Singapore" value="Singapore" />
@@ -98,5 +100,48 @@ function LeaderboardPage({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+
+  filterContainer: {
+    width: "100%",
+    height: 100,
+    color: "black",
+    marginBottom: 25,
+  },
+  jobFilter: {
+    width: "100%",
+    height: 50,
+    color: "black",
+    marginHorizontal: 10,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  jobFilterContent: {
+    width: "100%",
+    height: 50,
+    color: "black",
+    fontWeight: "bold",
+  },
+  locationFilter: {
+    width: "100%",
+    height: 50,
+    color: "black",
+    marginHorizontal: 10,
+    marginBottom: 10,
+  },
+  locationFilterContent: {
+    width: "100%",
+    height: 50,
+    color: "black",
+    fontWeight: "bold",
+  },
+  filterPicker: {
+    width: "100%",
+    height: 50,
+    color: "black",
+    borderRadius: 10,
+  },
+})
 
 export default React.memo(LeaderboardPage);
