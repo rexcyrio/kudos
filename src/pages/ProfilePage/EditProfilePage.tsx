@@ -40,8 +40,6 @@ function EditProfilePage({ navigation }): JSX.Element {
   const [userInput, setUserInput] = useState("");
   const [helperText, setHelperText] = useState("");
 
-
-
   const ref = useRef<React.ReactElement>(null);
 
   const handleProfilePicChange = () => {
@@ -159,30 +157,37 @@ function EditProfilePage({ navigation }): JSX.Element {
             <Text style={{ marginBottom: 10 }}>
               Are you sure you want to edit your profile:{" "}
             </Text>
-            <View style={styles.buttonGroup}>
-              <TouchableOpacity
-                style={styles.buttonContainer}
-                onPress={handleModalClose}
-              >
-                <View style={[styles.button, { backgroundColor: "red" }]}>
-                  <Text style={styles.buttonText}>No</Text>
-                </View>
+            <View style={{ flexDirection: "row", gap: 10 }}>
+              <TouchableOpacity onPress={handleModalClose}>
+                <Text
+                  style={{
+                    backgroundColor: "red",
+                    color: "white",
+                    borderRadius: 10,
+                    padding: 10,
+                  }}
+                >
+                  No
+                </Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.buttonContainer}
-                onPress={handleSaveChanges}
-              >
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Yes</Text>
-                </View>
+              <TouchableOpacity onPress={handleSaveChanges}>
+                <Text
+                  style={{
+                    backgroundColor: "green",
+                    color: "white",
+                    borderRadius: 10,
+                    padding: 10,
+                  }}
+                >
+                  Yes
+                </Text>
               </TouchableOpacity>
             </View>
           </Modal>
         </Portal>
-    </View>
+      </View>
     </ScrollView>
-
   );
-};
+}
 
 export default EditProfilePage;
